@@ -9,7 +9,7 @@ import {
 } from 'react-native-permissions';
 
 const PermisionScreen = () => {
-  const {askLocationPermission, permissions, checkLocationPermission} =
+  const {askLocationPermission, permissions} =
     React.useContext(PermissionsContext);
 
   return (

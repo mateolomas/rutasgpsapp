@@ -4,6 +4,7 @@ import MapScreen from '../screens/MapScreen';
 import PermisionScreen from '../screens/PermisionScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 import {PermissionsContext} from '../context/PermissionsContext';
+import Mapscreen from '../screens/CheckGPSScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +17,11 @@ export const NativeStack = () => {
   return (
     <Stack.Navigator initialRouteName="PermisionScreen">
       {permissions.locationStatus === 'granted' ? (
-        <Stack.Screen name="MapScreen" component={MapScreen} />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="MapScreen"
+          component={MapScreen}
+        />
       ) : (
         <Stack.Screen name="PermisionScreen" component={PermisionScreen} />
       )}
