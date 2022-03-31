@@ -8,7 +8,9 @@ const LoadingScreen = () => {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        marginVertical: -20,
       }}>
+      <Text>Cargando...</Text>
       <ActivityIndicator size="large" />
     </View>
   );

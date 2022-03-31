@@ -22,7 +22,7 @@ const Fab = ({iconName, onPress, style}: Props) => {
         onPress={onPress}
         activeOpacity={0.8}
         style={styles.blackbutton}>
-        <Icon name={iconName} size={40} color="white" />
+        <Icon name={iconName} size={30} color="black" />
       </TouchableOpacity>
     </View>
   );
@@ -30,9 +30,12 @@ const Fab = ({iconName, onPress, style}: Props) => {
 
 const styles = StyleSheet.create({
   blackbutton: {
-    backgroundColor: 'black',
-    width: 60,
-    height: 60,
+    justifyContent: 'center',
+
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    width: 30,
+    height: 30,
     borderRadius: 30,
     zIndex: 9999,
   },

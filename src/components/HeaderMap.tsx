@@ -2,11 +2,12 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import Cards from './Cards';
 
 const HeaderMap = () => {
   const {top} = useSafeAreaInsets();
   return (
-    <>
+    <View style={{flex: 1}}>
       <View
         style={{
           flexDirection: 'row',
@@ -56,7 +57,7 @@ const HeaderMap = () => {
           </View>
         </View>
       </View>
-    </>
+    </View>
   );
 };
 

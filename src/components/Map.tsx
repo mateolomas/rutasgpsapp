@@ -54,12 +54,15 @@ export const Map = ({markers}: Props) => {
     return <LoadingScreen />;
   }
 
+  console.log(hasLocation);
+  console.log(userLocation);
+
   return (
     <>
       <MapView
         ref={el => (mapViewRef.current = el!)}
         style={{flex: 1}}
-        //provider={PROVIDER_GOOGLE}
+        provider={PROVIDER_GOOGLE}
         showsUserLocation
         initialRegion={{
           latitude: initialPosition.latitude,
@@ -68,36 +71,36 @@ export const Map = ({markers}: Props) => {
           longitudeDelta: 0.0421,
         }}
         onTouchStart={() => (following.current = false)}>
-        {/*   {showPolyline && (
+        {showPolyline && (
           <Polyline
             coordinates={routeLines}
             strokeColor="black"
             strokeWidth={3}
           />
-        )} */}
+        )}
 
-        {/* <Marker
-                    image={ require('../assets/custom-marker.png') }
-                    coordinate={{
-                        latitude: 37.78825,
-                        longitude: -122.4324,
-                    }}
-                    title="Esto es un título"
-                    description="Esto es una descripción del marcador"
-                /> */}
+        <Marker
+          image={require('../assets/images/marker.png')}
+          coordinate={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+          }}
+          title="Esto es un título"
+          description="Esto es una descripción del marcador"
+        />
       </MapView>
 
-      {/*  <Fab
+      <Fab
         iconName="compass-outline"
         onPress={centerPosition}
         style={{
           position: 'absolute',
-          bottom: 50,
-          right: 20,
+          bottom: 350,
+          left: 20,
         }}
       />
 
-      <Fab
+      {/*   <Fab
         iconName="brush-outline"
         onPress={() => {
           setShowPolyline(!showPolyline);

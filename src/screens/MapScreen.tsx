@@ -13,8 +13,9 @@ const MapScreen = () => {
   return (
     <View style={{flex: 1}}>
       <HeaderMap />
-      <Cards />
+
       <Map />
+
       <MapButtons />
     </View>
   );

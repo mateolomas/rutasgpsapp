@@ -5,6 +5,8 @@ import PermisionScreen from '../screens/PermisionScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 import {PermissionsContext} from '../context/PermissionsContext';
 import Mapscreen from '../screens/CheckGPSScreen';
+import DistanceScreen from '../screens/DistanceScreen';
+import RouteScreen from '../screens/RouteScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +29,21 @@ export const NativeStack = () => {
       )}
 
       <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="DistanceScreen"
+        component={DistanceScreen}
+      />
+
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="RouteScreen"
+        component={RouteScreen}
+      />
     </Stack.Navigator>
   );
 };

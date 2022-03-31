@@ -3,6 +3,7 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import CheckGPSScreen from '../screens/CheckGPSScreen';
 import MapScreen from '../screens/MapScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {NativeStack} from './NativeStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -19,7 +20,7 @@ export const BottomTabs = () => {
           ),
         }}
         name="Home"
-        component={CheckGPSScreen}
+        component={NativeStack}
       />
       <Tab.Screen
         options={{
@@ -46,7 +47,7 @@ export const BottomTabs = () => {
           ),
         }}
         name="Activity"
-        component={MapScreen}
+        component={CheckGPSScreen}
       />
     </Tab.Navigator>
   );

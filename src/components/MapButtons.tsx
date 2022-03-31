@@ -1,8 +1,10 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const MapButtons = () => {
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -25,7 +27,7 @@ const MapButtons = () => {
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity onPress={() => navigation.navigate('DistanceScreen')}>
         <View
           style={{
             backgroundColor: 'purple',
