@@ -62,7 +62,7 @@ export const Map = ({markers}: Props) => {
       <MapView
         ref={el => (mapViewRef.current = el!)}
         style={{flex: 1}}
-        provider={PROVIDER_GOOGLE}
+        //provider={PROVIDER_GOOGLE}
         showsUserLocation
         initialRegion={{
           latitude: initialPosition.latitude,

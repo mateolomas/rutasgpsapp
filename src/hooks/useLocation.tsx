@@ -28,14 +28,16 @@ export const useLocation = () => {
   }, []);
 
   useEffect(() => {
-    getCurrentLocation().then(location => {
-      if (!isMounted.current) return;
+    getCurrentLocation()
+      .then(location => {
+        if (!isMounted.current) return;
 
-      setInitialPosition(location);
-      setUserLocation(location);
-      setRouteLines(routes => [...routes, location]);
-      setHasLocation(true);
-    });
+        setInitialPosition(location);
+        setUserLocation(location);
+        setRouteLines(routes => [...routes, location]);
+        setHasLocation(true);
+      })
+      .catch(err => console.log(err, 'error'));
   }, []);
 
   const getCurrentLocation = async (): Promise<Location> => {

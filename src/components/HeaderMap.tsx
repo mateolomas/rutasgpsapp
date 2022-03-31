@@ -7,7 +7,7 @@ import Cards from './Cards';
 const HeaderMap = () => {
   const {top} = useSafeAreaInsets();
   return (
-    <View style={{flex: 1}}>
+    <View>
       <View
         style={{
           flexDirection: 'row',

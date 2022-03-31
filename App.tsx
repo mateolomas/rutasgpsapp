@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {NativeStack} from './src/navigation/NativeStack';
 import {PermissionsProvider} from './src/context/PermissionsContext';
 import {BottomTabs} from './src/navigation/BottomTabs';
+import {LocationProvider} from './src/context/LocationContext';
 
 const AppState = ({children}: any) => {
   return <PermissionsProvider>{children}</PermissionsProvider>;
@@ -11,10 +12,12 @@ const AppState = ({children}: any) => {
 const App = () => {
   return (
     <NavigationContainer>
-      <AppState>
-        {/* <NativeStack /> */}
-        <BottomTabs />
-      </AppState>
+      <LocationProvider>
+        <AppState>
+          {/* <NativeStack /> */}
+          <BottomTabs />
+        </AppState>
+      </LocationProvider>
     </NavigationContainer>
   );
 };

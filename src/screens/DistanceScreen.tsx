@@ -1,10 +1,43 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {Text, View, TouchableOpacity} from 'react-native';
+import React, {useContext} from 'react';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  TouchableHighlight,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useLocation} from '../hooks/useLocation';
+import {useEffect} from 'react';
+import {useState} from 'react';
+import {Location} from '../interfaces/appInterfaces';
+import {Stopwatch} from 'react-native-stopwatch-timer';
+import {LocationContext} from '../context/LocationContext';
 
 const DistanceScreen = () => {
   const navigation = useNavigation();
+
+  const {initialPosition, getCurrentLocation, userLocation} = useLocation();
+
+  const [positionWhenPlay, setPositionWhenPlay] = useState<Location>({
+    latitude: userLocation.latitude,
+    longitude: userLocation.longitude,
+  });
+
+  const [positionWhenPause, setPositionWhenPause] = useState<Location>({
+    latitude: userLocation.latitude,
+    longitude: userLocation.longitude,
+  });
+
+  /**timer */
+  const [isTimerStart, setIsTimerStart] = useState(false);
+  const [resetTimer, setResetTimer] = useState(false);
+  const [elapsedTime, setElapsedTime] = useState(0);
+
+  const Location = useContext(LocationContext);
+
+  console.log(Location, 'locationcontext');
 
   return (
     <View
@@ -29,41 +62,28 @@ const DistanceScreen = () => {
               fontSize: 30,
               bottom: 10,
             }}>
-            __
-          </Text>
-          <Text
-            style={{
-              fontWeight: '200',
-            }}>
-            Pace
-          </Text>
-        </View>
-
-        <View>
-          <Text
-            style={{
-              fontWeight: 'bold',
-              fontSize: 30,
-              bottom: 10,
-            }}>
-            __
-          </Text>
-          <Text
-            style={{
-              fontWeight: '200',
-            }}>
-            BPM
-          </Text>
-        </View>
-
-        <View>
-          <Text
-            style={{
-              fontWeight: 'bold',
-              fontSize: 30,
-              bottom: 10,
-            }}>
-            __
+            <Stopwatch
+              start={isTimerStart}
+              reset={resetTimer}
+              options={options}
+              getTime={(time: any) => setElapsedTime(time)}
+            />
+            <TouchableHighlight
+              onPress={() => {
+                setIsTimerStart(!isTimerStart);
+                setResetTimer(false);
+              }}>
+              <Text style={styles.buttonText}>
+                {!isTimerStart ? 'START' : 'STOP'}
+              </Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              onPress={() => {
+                setIsTimerStart(false);
+                setResetTimer(true);
+              }}>
+              <Text style={styles.buttonText}>RESET</Text>
+            </TouchableHighlight>
           </Text>
           <Text
             style={{
@@ -88,6 +108,7 @@ const DistanceScreen = () => {
             fontWeight: '200',
           }}>
           Kilometers
+          {JSON.stringify(userLocation)}
         </Text>
       </View>
 
@@ -111,6 +132,46 @@ const DistanceScreen = () => {
       </TouchableOpacity>
     </View>
   );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+    padding: 20,
+  },
+  sectionStyle: {
+    flex: 1,
+    marginTop: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    fontSize: 20,
+    marginTop: 10,
+  },
+});
+
+const options = {
+  container: {
+    backgroundColor: 'blue',
+    padding: 5,
+    borderRadius: 5,
+    width: 200,
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 25,
+    color: '#FFF',
+    marginLeft: 7,
+  },
 };
 
 export default DistanceScreen;

@@ -4,6 +4,7 @@ import CheckGPSScreen from '../screens/CheckGPSScreen';
 import MapScreen from '../screens/MapScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {NativeStack} from './NativeStack';
+import TripScreen from '../screens/TripScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -29,7 +30,7 @@ export const BottomTabs = () => {
           ),
         }}
         name="Run"
-        component={CheckGPSScreen}
+        component={TripScreen}
       />
       <Tab.Screen
         options={{
