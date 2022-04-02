@@ -1,11 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
-import {Map} from '../components/Map';
+import {Map} from '../../components/Map';
+import {LocationContext} from '../../context/LocationContext';
+import {useLocation} from '../../hooks/useLocation';
 
 const RouteScreen = () => {
   const navigation = useNavigation();
+
+  const {seconds, start, minutes, hours, pause, reset} =
+    useContext(LocationContext);
 
   return (
     <>
@@ -31,7 +36,7 @@ const RouteScreen = () => {
                   fontSize: 30,
                   bottom: 10,
                 }}>
-                __
+                {Math.round(seconds / 2)}
               </Text>
               <Text
                 style={{
@@ -65,7 +70,7 @@ const RouteScreen = () => {
                   fontSize: 30,
                   bottom: 10,
                 }}>
-                __
+                {seconds}
               </Text>
               <Text
                 style={{
@@ -146,7 +151,12 @@ const RouteScreen = () => {
 
             marginHorizontal: 50,
           }}>
-          <TouchableOpacity style={{}}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('TotalTripScreen', {seconds});
+              pause();
+              reset();
+            }}>
             <View
               style={{
                 backgroundColor: 'black',
@@ -159,7 +169,13 @@ const RouteScreen = () => {
               <Icon name="md-stop" size={30} color="white" />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={{}}>
+
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('DistanceScreen');
+              start();
+            }}
+            style={{}}>
             <View
               style={{
                 backgroundColor: 'purple',

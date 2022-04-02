@@ -1,10 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {LocationContext} from '../context/LocationContext';
 
 const MapButtons = () => {
   const navigation = useNavigation();
+  const {start} = useContext(LocationContext);
+
   return (
     <View
       style={{
@@ -27,7 +30,11 @@ const MapButtons = () => {
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate('DistanceScreen')}>
+      <TouchableOpacity
+        onPress={() => {
+          start();
+          navigation.navigate('DistanceScreen');
+        }}>
         <View
           style={{
             backgroundColor: 'purple',

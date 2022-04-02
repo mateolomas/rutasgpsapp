@@ -69,7 +69,7 @@ export const useLocation = () => {
         setRouteLines(routes => [...routes, location]);
       },
       err => console.log(err),
-      {enableHighAccuracy: true, distanceFilter: 10},
+      {enableHighAccuracy: true, distanceFilter: 1},
     );
   };
 

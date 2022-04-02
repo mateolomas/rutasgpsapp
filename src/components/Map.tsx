@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import MapView, {Marker, Polyline, PROVIDER_GOOGLE} from 'react-native-maps';
 import {useLocation} from '../hooks/useLocation';
-import LoadingScreen from '../screens/LoadingScreen';
+import LoadingScreen from '../screens/Stack/LoadingScreen';
 import Fab from './Fab';
 
 interface Props {
@@ -54,32 +54,36 @@ export const Map = ({markers}: Props) => {
     return <LoadingScreen />;
   }
 
-  console.log(hasLocation);
-  console.log(userLocation);
-
   return (
     <>
       <MapView
         ref={el => (mapViewRef.current = el!)}
         style={{flex: 1}}
         //provider={PROVIDER_GOOGLE}
+        loadingEnabled
         showsUserLocation
+        region={{
+          latitude: initialPosition.latitude,
+          longitude: initialPosition.longitude,
+          latitudeDelta: 0.009,
+          longitudeDelta: 0.0008,
+        }}
         initialRegion={{
           latitude: initialPosition.latitude,
           longitude: initialPosition.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          latitudeDelta: 0.009,
+          longitudeDelta: 0.0008,
         }}
         onTouchStart={() => (following.current = false)}>
-        {showPolyline && (
+        {/* {showPolyline && (
           <Polyline
             coordinates={routeLines}
             strokeColor="black"
             strokeWidth={3}
           />
-        )}
+        )} */}
 
-        <Marker
+        {/*  <Marker
           image={require('../assets/images/marker.png')}
           coordinate={{
             latitude: 37.78825,
@@ -87,7 +91,7 @@ export const Map = ({markers}: Props) => {
           }}
           title="Esto es un título"
           description="Esto es una descripción del marcador"
-        />
+        /> */}
       </MapView>
 
       <Fab
@@ -95,7 +99,7 @@ export const Map = ({markers}: Props) => {
         onPress={centerPosition}
         style={{
           position: 'absolute',
-          bottom: 350,
+          bottom: 250,
           left: 20,
         }}
       />

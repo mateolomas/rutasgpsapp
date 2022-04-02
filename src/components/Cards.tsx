@@ -3,9 +3,11 @@ import {ScrollView, View, Image, Text} from 'react-native';
 
 const Cards = () => {
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{}}>
-      {/* <View
+    <ScrollView horizontal style={{backgroundColor: 'red', height: 900}}>
+      <View
         style={{
+          width: 100,
+          height: 100,
           backgroundColor: 'white',
           flexDirection: 'row',
           shadowColor: '#000',
@@ -21,8 +23,8 @@ const Cards = () => {
         <Image
           source={require('../assets/images/runner.jpeg')}
           style={{
-            width: '30%',
-            height: '80%',
+            width: '100%',
+            height: '90%',
             borderRadius: 10,
             marginHorizontal: 10,
           }}
@@ -51,7 +53,7 @@ const Cards = () => {
             25 min - Run
           </Text>
         </View>
-      </View> */}
+      </View>
     </ScrollView>
   );
 };

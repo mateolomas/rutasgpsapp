@@ -1,31 +1,45 @@
 import React, {useContext} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import MapScreen from '../screens/MapScreen';
-import PermisionScreen from '../screens/PermisionScreen';
-import LoadingScreen from '../screens/LoadingScreen';
+
+import PermisionScreen from '../screens/Stack/PermisionScreen';
+import LoadingScreen from '../screens/Stack/LoadingScreen';
 import {PermissionsContext} from '../context/PermissionsContext';
-import Mapscreen from '../screens/CheckGPSScreen';
-import DistanceScreen from '../screens/DistanceScreen';
-import RouteScreen from '../screens/RouteScreen';
+import DistanceScreen from '../screens/Stack/DistanceScreen';
+import RouteScreen from '../screens/Stack/RouteScreen';
+import TotalTripScreen from '../screens/Stack/TotalTripScreen';
+import HomeScreen from '../screens/Stack/HomeScreen';
+
+export type RootStackParamList = {
+  HomeScreen: undefined;
+  PermisionScreen: undefined;
+  LoadingScreen: undefined;
+  DistanceScreen: undefined;
+  RouteScreen: undefined;
+  TotalTripScreen: undefined;
+};
 
 const Stack = createNativeStackNavigator();
 
 export const NativeStack = () => {
   const {permissions} = useContext(PermissionsContext);
-  /*  if (permissions.locationStatus === 'unavailable') {
+  if (permissions.locationStatus === 'unavailable') {
     return <LoadingScreen />;
-  } */
+  }
 
   return (
     <Stack.Navigator initialRouteName="PermisionScreen">
       {permissions.locationStatus === 'granted' ? (
         <Stack.Screen
           options={{headerShown: false}}
-          name="MapScreen"
-          component={MapScreen}
+          name="HomeScreen"
+          component={HomeScreen}
         />
       ) : (
-        <Stack.Screen name="PermisionScreen" component={PermisionScreen} />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="PermisionScreen"
+          component={PermisionScreen}
+        />
       )}
 
       <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
@@ -43,6 +57,14 @@ export const NativeStack = () => {
         }}
         name="RouteScreen"
         component={RouteScreen}
+      />
+
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="TotalTripScreen"
+        component={TotalTripScreen}
       />
     </Stack.Navigator>
   );
