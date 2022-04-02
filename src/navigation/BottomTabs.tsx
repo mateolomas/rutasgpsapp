@@ -1,10 +1,9 @@
 import React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import CheckGPSScreen from '../screens/CheckGPSScreen';
-import MapScreen from '../screens/MapScreen';
+import HomeScreen from '../screens/Stack/HomeScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {NativeStack} from './NativeStack';
-import TripScreen from '../screens/TripScreen';
+import TripScreen from '../screens/BottomTabs/TripScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -39,7 +38,7 @@ export const BottomTabs = () => {
           ),
         }}
         name="Club"
-        component={CheckGPSScreen}
+        component={TripScreen}
       />
       <Tab.Screen
         options={{
@@ -48,7 +47,7 @@ export const BottomTabs = () => {
           ),
         }}
         name="Activity"
-        component={CheckGPSScreen}
+        component={TripScreen}
       />
     </Tab.Navigator>
   );
