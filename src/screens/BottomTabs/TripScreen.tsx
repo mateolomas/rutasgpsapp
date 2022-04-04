@@ -1,16 +1,18 @@
 import React, {useEffect} from 'react';
 import {View, Text, Button, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  trips,
-  tripInfo,
-  getAllKeys,
-  getMyData,
-  logCurrentStorage,
-  removeMyData,
-} from '../../hooks/useStorage';
+import {useStotage} from '../../hooks/useStorage';
 
 const TripScreen = () => {
+  const {
+    trips,
+    tripInfo,
+    getAllKeys,
+    getMyData,
+    logCurrentStorage,
+    removeMyData,
+  } = useStotage();
+
   useEffect(() => {
     getAllKeys();
   }, []);
