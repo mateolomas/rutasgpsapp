@@ -14,7 +14,7 @@ export interface RouteInfo {
     initialPosition?: Location,
     finalPosition?: Location,
     routeline: Location[],
-    distance: Number,
+    distance: number,
 }
 
 export interface TotalTrip {
@@ -22,7 +22,7 @@ export interface TotalTrip {
     initialPosition?: Location,
     finalPosition?: Location,
     routeList: Location[],
-    distance: Number,
+    distance: number,
     seconds: Number,
     minutes: Number,
     hours: Number,

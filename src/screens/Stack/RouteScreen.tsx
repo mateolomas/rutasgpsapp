@@ -25,8 +25,6 @@ const RouteScreen = ({route, navigation}: Props) => {
     stopFollowUserLocation,
   } = useContext(LocationContext);
 
-  console.log(hasLocation, 'hasLocation');
-
   return (
     <>
       <Map

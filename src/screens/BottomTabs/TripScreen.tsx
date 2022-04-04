@@ -46,7 +46,6 @@ const TripScreen = ({navigation}: Props) => {
 
     return unsubscribe;
   }, [navigation]);
-  console.log('trips', trips);
 
   return (
     <View style={styles.container}>
@@ -71,7 +70,9 @@ const TripScreen = ({navigation}: Props) => {
                 <Text>
                   Time: {trip.hours}: {trip.minutes}:{trip.seconds}
                 </Text>
-                <Text>Distance: {trip.distance}</Text>
+                <Text>
+                  Distance: {Math.round(trip.distance * 100) / 100} Km
+                </Text>
               </View>
             </TouchableOpacity>
           ))}
@@ -103,13 +104,22 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   trip: {
-    width: '100%',
-
+    width: '90%',
     padding: 10,
     height: 100,
-    borderTopWidth: 1,
     marginVertical: 8,
-    borderBottomWidth: 1,
+    marginTop: 20,
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 6.3,
+    marginHorizontal: 20,
+    elevation: 13,
   },
   tripText: {
     fontSize: 20,

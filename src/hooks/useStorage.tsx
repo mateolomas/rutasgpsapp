@@ -4,8 +4,8 @@ import {RouteInfo, TotalTrip} from '../interfaces/appInterfaces';
 import {LocationContext} from '../context/LocationContext';
 
 export const useStorage = () => {
-  const {initialPosition} = useContext(LocationContext);
-
+  /* const {initialPosition} = useContext(LocationContext); */
+  /* 
   const [trips, setTrips] = React.useState<RouteInfo[]>([]);
   const [tripInfo, setTripInfo] = React.useState<TotalTrip>({
     distance: 0,
@@ -14,12 +14,12 @@ export const useStorage = () => {
     seconds: 0,
     hours: 0,
   });
+*/
 
   const getAllKeys = async () => {
     let keys: any = [];
     try {
       keys = await AsyncStorage.getAllKeys();
-      setTrips(keys);
     } catch (e) {
       console.log(e);
     }
@@ -29,7 +29,7 @@ export const useStorage = () => {
   // example console.log result:
   // ['@MyApp_user', '@MyApp_key']
   const logCurrentStorage = () => {
-    AsyncStorage.getAllKeys().then(keyArray => {
+    AsyncStorage.getAllKeys().then((keyArray: string[]) => {
       AsyncStorage.multiGet(keyArray).then(keyValArray => {
         let myStorage: any = {};
         for (let keyVal of keyValArray) {
@@ -50,10 +50,7 @@ export const useStorage = () => {
   };
 
   return {
-    trips,
-    tripInfo,
     getAllKeys,
-
     removeMyData,
     logCurrentStorage,
   };

@@ -62,10 +62,7 @@ export const Map = ({
 
   const centerPosition = async () => {
     const {latitude, longitude} = await getCurrentLocation();
-
     following.current = true;
-    console.log('centerPosition', latitude, longitude);
-
     mapViewRef.current?.animateCamera({
       center: {latitude, longitude},
     });
@@ -83,12 +80,6 @@ export const Map = ({
         provider={PROVIDER_GOOGLE}
         loadingEnabled
         showsUserLocation={showUserLocation}
-        /* region={{
-          latitude: coords.latitude,
-          longitude: coords.longitude,
-          latitudeDelta: LATITUDE_DELTA,
-          longitudeDelta: LONGITUDE_DELTA,
-        }} */
         initialRegion={{
           latitude: coords.latitude,
           longitude: coords.longitude,
@@ -103,7 +94,7 @@ export const Map = ({
             strokeWidth={5}
             lineJoin="round"
             strokeColors={[
-              '#7F0000', // no color, creates a "long" gradient between the previous and next coordinate
+              '#7F0000',
               '#B24112',
               '#E5845C',
               '#238C23',

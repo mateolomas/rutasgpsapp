@@ -24,7 +24,6 @@ const HomeScreen = ({navigation}: Props) => {
     getCurrentLocation()
       .then((location: Location) => {
         setInitialPosition(location);
-        console.log('INITIALposition', location);
       })
       .catch((err: any) => {
         console.log(err, 'error');

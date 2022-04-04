@@ -50,7 +50,7 @@ export const useLocation = () => {
           });
         },
         err => reject({err}),
-        {enableHighAccuracy: true},
+        {enableHighAccuracy: true, distanceFilter: 1},
       );
     });
   };
