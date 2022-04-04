@@ -10,17 +10,19 @@ interface Props
   extends NativeStackScreenProps<RootStackParamList, 'RouteScreen'> {}
 
 const RouteScreen = ({route, navigation}: Props) => {
-  const finalPosition = route.params.finalPosition;
+  const finalPosition = route.params.finalPosition!;
   const routeList = route.params.routeline;
   const distance = route.params.distance;
 
-  const {seconds, start, minutes, hours, pause, reset} =
+  const {seconds, start, minutes, hours, pause, reset, hasLocation} =
     useContext(LocationContext);
+
+  console.log(hasLocation, 'hasLocation');
 
   return (
     <>
       <Map
-        coords={finalPosition!}
+        coords={finalPosition}
         showUserLocation={false}
         polyline={routeList}
         markers={routeList}

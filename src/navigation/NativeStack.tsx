@@ -9,6 +9,7 @@ import RouteScreen from '../screens/Stack/RouteScreen';
 import TotalTripScreen from '../screens/Stack/TotalTripScreen';
 import HomeScreen from '../screens/Stack/HomeScreen';
 import {Location, RouteInfo, TotalTrip} from '../interfaces/appInterfaces';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 export type RootStackParamList = {
   HomeScreen: undefined;
@@ -21,14 +22,19 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator();
 
-export const NativeStack = () => {
+export const NativeStack = ({navigation, route}: any) => {
   const {permissions} = useContext(PermissionsContext);
   if (permissions.locationStatus === 'unavailable') {
     return <LoadingScreen />;
   }
 
   return (
-    <Stack.Navigator initialRouteName="PermisionScreen">
+    <Stack.Navigator
+      initialRouteName="PermisionScreen"
+      screenOptions={{
+        /* presentation: 'fullScreenModal', */
+        presentation: 'modal',
+      }}>
       {permissions.locationStatus === 'granted' ? (
         <Stack.Screen
           options={{headerShown: false}}

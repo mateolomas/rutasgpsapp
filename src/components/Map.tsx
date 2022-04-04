@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import {Dimensions} from 'react-native';
 import MapView, {Marker, Polyline, PROVIDER_GOOGLE} from 'react-native-maps';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -6,6 +6,7 @@ import {useLocation} from '../hooks/useLocation';
 import {Location} from '../interfaces/appInterfaces';
 import LoadingScreen from '../screens/Stack/LoadingScreen';
 import Fab from './Fab';
+import {LocationContext} from '../context/LocationContext';
 
 interface Props {
   markers?: Location[];
@@ -20,6 +21,7 @@ export const Map = ({
   markers,
   coords,
   polyline,
+
   showUserLocation = true,
   zoom = 0.009,
 }: Props) => {
@@ -32,14 +34,13 @@ export const Map = ({
 
   const {
     hasLocation,
-
     initialPosition,
     getCurrentLocation,
     followUserLocation,
     userLocation,
     stopFollowUserLocation,
     routeLines,
-  } = useLocation();
+  } = useContext(LocationContext);
 
   const mapViewRef = useRef<MapView>();
   const following = useRef<boolean>(true);
@@ -80,12 +81,12 @@ export const Map = ({
       <MapView
         ref={el => (mapViewRef.current = el!)}
         style={{flex: 1}}
-        provider={PROVIDER_GOOGLE}
+        //provider={PROVIDER_GOOGLE}
         loadingEnabled
         showsUserLocation={showUserLocation}
         region={{
-          latitude: coords.latitude,
-          longitude: coords.longitude,
+          latitude: userLocation.latitude,
+          longitude: userLocation.longitude,
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA,
           /* latitudeDelta: 0.0022,

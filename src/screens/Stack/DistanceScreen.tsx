@@ -16,6 +16,7 @@ const DistanceScreen = ({navigation}: Props) => {
     seconds,
     minutes,
     pause,
+
     userLocation,
     getCurrentLocation,
     stopFollowUserLocation,
@@ -24,7 +25,10 @@ const DistanceScreen = ({navigation}: Props) => {
   const [initialPosition, setInitialPosition] =
     useState<Location>(userLocation);
   const [finalPosition, setFinalPosition] = useState<Location>(userLocation);
-  const [routeline, setRouteLines] = useState<Location[]>([]);
+  const [routeline, setRouteLines] = useState<Location[]>([
+    initialPosition,
+    userLocation,
+  ]);
 
   useEffect(() => {
     getCurrentLocation()
@@ -71,8 +75,6 @@ const DistanceScreen = ({navigation}: Props) => {
   );
 
   console.log('distance: ', distance);
-  console.log('initialPosition: ', initialPosition);
-  console.log('finalPosition: ', finalPosition);
   console.log('route lines: ', routeline);
 
   return (

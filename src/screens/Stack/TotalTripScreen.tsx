@@ -213,7 +213,12 @@ const TotalTripScreen = ({route, navigation}: Props) => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              pause();
+              reset();
+              navigation.popToTop();
+            }}>
             <View style={styles.buttonRed}>
               <Text>Delete trip</Text>
             </View>

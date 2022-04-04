@@ -4,6 +4,7 @@ import HomeScreen from '../screens/Stack/HomeScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {NativeStack} from './NativeStack';
 import TripScreen from '../screens/BottomTabs/TripScreen';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 const Tab = createMaterialBottomTabNavigator();
 
