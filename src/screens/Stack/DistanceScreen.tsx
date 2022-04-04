@@ -2,10 +2,7 @@ import React, {useContext, useState, useRef, useEffect} from 'react';
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {LocationContext} from '../../context/LocationContext';
-import {
-  getDistanceFromLatLonInKm,
-  getDistanceFromArray,
-} from '../../helpers/Distance';
+import {getDistanceFromArray} from '../../helpers/Distance';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigation/NativeStack';
 import {Location} from '../../interfaces/appInterfaces';
@@ -25,44 +22,25 @@ const DistanceScreen = ({navigation, route}: Props) => {
     stopFollowUserLocation,
   } = useContext(LocationContext);
 
-  /* const [initialPosition, setInitialPosition] =
-    useState<Location>(userLocation); */
   const [finalPosition, setFinalPosition] = useState<Location>(userLocation);
 
   const [routeline, setRouteLines] = useState<Location[]>([
     initialPosition,
     finalPosition,
   ]);
-  useEffect(() => {
-    getCurrentLocation()
-      .then((location: Location) => {
-        setFinalPosition(location);
-        console.log('USEEFFECT1', location);
-      })
-      .catch((err: any) => {
-        console.log(err, 'error');
-      });
-  }, [getCurrentLocation]);
+
+  const distance = getDistanceFromArray(routeline);
+  const isMounted = useRef(true);
+  const watchId = useRef<number>();
 
   useEffect(() => {
-    if (distance) return;
+    let isCancelled = false;
     followUserLocation();
     return () => {
       stopFollowUserLocation();
+      isCancelled = true;
     };
-  }, [userLocation]);
-
-  /*   const distance = getDistanceFromLatLonInKm(
-    initialPosition.latitude,
-    initialPosition.longitude,
-    finalPosition.latitude,
-    finalPosition.longitude,
-  ); */
-
-  const distance = getDistanceFromArray(routeline);
-
-  const isMounted = useRef(true);
-  const watchId = useRef<number>();
+  }, []);
 
   const followUserLocation = () => {
     watchId.current = Geolocation.watchPosition(
@@ -80,9 +58,6 @@ const DistanceScreen = ({navigation, route}: Props) => {
       {enableHighAccuracy: true, distanceFilter: 1},
     );
   };
-
-  console.log('distance: ', distance);
-  console.log('routeline: ', routeline);
 
   return (
     <View style={styles.container}>

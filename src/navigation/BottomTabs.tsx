@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {NativeStack} from './NativeStack';
 import TripScreen from '../screens/BottomTabs/TripScreen';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
+import {TripInfoStack} from './TripsInfoStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -29,8 +30,8 @@ export const BottomTabs = () => {
             <Icon name="trophy-outline" size={25} color="black" />
           ),
         }}
-        name="Run"
-        component={TripScreen}
+        name="TripInfoStack"
+        component={TripInfoStack}
       />
       <Tab.Screen
         options={{

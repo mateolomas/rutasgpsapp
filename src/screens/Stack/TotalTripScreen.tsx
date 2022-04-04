@@ -6,6 +6,7 @@ import {LocationContext} from '../../context/LocationContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigation/NativeStack';
+import {saveTrip} from '../../lib/storageTrip';
 
 interface Props
   extends NativeStackScreenProps<RootStackParamList, 'TotalTripScreen'> {}
@@ -15,15 +16,16 @@ const TotalTripScreen = ({route, navigation}: Props) => {
 
   const {pause, reset} = useContext(LocationContext);
 
-  const ElementToSave = new Date().toString();
+  //const ElementToSave = new Date().toString();
 
   //saving to local storage
-  const saveToLocalStorage = () => {
-    try {
-      AsyncStorage.setItem(ElementToSave, JSON.stringify(trip));
+  const saveToLocalStorage = async () => {
+    await saveTrip(trip);
+    /* try {
+      AsyncStorage.setItem('trip', JSON.stringify(trip));
     } catch (error) {
       console.log(error);
-    }
+    } */
   };
 
   return (

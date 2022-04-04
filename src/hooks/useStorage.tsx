@@ -1,9 +1,19 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {RouteInfo, TotalTrip} from '../interfaces/appInterfaces';
+import {LocationContext} from '../context/LocationContext';
 
-export const useStotage = () => {
-  const [trips, setTrips] = React.useState([]);
-  const [tripInfo, setTripInfo] = React.useState({});
+export const useStorage = () => {
+  const {initialPosition} = useContext(LocationContext);
+
+  const [trips, setTrips] = React.useState<RouteInfo[]>([]);
+  const [tripInfo, setTripInfo] = React.useState<TotalTrip>({
+    distance: 0,
+    routeList: [initialPosition],
+    minutes: 0,
+    seconds: 0,
+    hours: 0,
+  });
 
   const getAllKeys = async () => {
     let keys: any = [];
@@ -16,14 +26,6 @@ export const useStotage = () => {
     console.log(keys);
   };
 
-  const getMyData = async (trip: any) => {
-    try {
-      const jsonValue = await AsyncStorage.getItem(trip);
-      jsonValue != null ? setTripInfo(JSON.parse(jsonValue)) : null;
-    } catch (e) {
-      console.log(e);
-    }
-  };
   // example console.log result:
   // ['@MyApp_user', '@MyApp_key']
   const logCurrentStorage = () => {
@@ -51,8 +53,8 @@ export const useStotage = () => {
     trips,
     tripInfo,
     getAllKeys,
-    getMyData,
-    logCurrentStorage,
+
     removeMyData,
+    logCurrentStorage,
   };
 };

@@ -54,7 +54,6 @@ export const Map = ({
 
   useEffect(() => {
     if (!following.current) return;
-
     const {latitude, longitude} = userLocation;
     mapViewRef.current?.animateCamera({
       center: {latitude, longitude},
@@ -65,6 +64,7 @@ export const Map = ({
     const {latitude, longitude} = await getCurrentLocation();
 
     following.current = true;
+    console.log('centerPosition', latitude, longitude);
 
     mapViewRef.current?.animateCamera({
       center: {latitude, longitude},
@@ -80,20 +80,18 @@ export const Map = ({
       <MapView
         ref={el => (mapViewRef.current = el!)}
         style={{flex: 1}}
-        //provider={PROVIDER_GOOGLE}
+        provider={PROVIDER_GOOGLE}
         loadingEnabled
         showsUserLocation={showUserLocation}
-        region={{
-          latitude: userLocation.latitude,
-          longitude: userLocation.longitude,
+        /* region={{
+          latitude: coords.latitude,
+          longitude: coords.longitude,
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA,
-          /* latitudeDelta: 0.0022,
-          longitudeDelta: 0.0121, */
-        }}
+        }} */
         initialRegion={{
-          latitude: initialPosition.latitude,
-          longitude: initialPosition.longitude,
+          latitude: coords.latitude,
+          longitude: coords.longitude,
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA,
         }}
@@ -121,7 +119,7 @@ export const Map = ({
                 latitude: markers[0].latitude,
                 longitude: markers[0].longitude,
               }}>
-              <Icon name="flag" size={50} color="black" />
+              <Icon name="flag" size={40} color="black" />
             </Marker>
 
             <Marker
@@ -129,7 +127,7 @@ export const Map = ({
                 latitude: markers[markers.length - 1].latitude,
                 longitude: markers[markers.length - 1].longitude,
               }}>
-              <Icon name="golf" size={50} color="black" />
+              <Icon name="golf" size={40} color="black" />
             </Marker>
           </>
         )}
@@ -137,7 +135,7 @@ export const Map = ({
 
       <Fab
         iconName="compass-outline"
-        onPress={() => centerPosition}
+        onPress={centerPosition}
         style={{
           position: 'absolute',
           bottom: 250,

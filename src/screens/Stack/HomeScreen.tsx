@@ -29,7 +29,7 @@ const HomeScreen = ({navigation}: Props) => {
       .catch((err: any) => {
         console.log(err, 'error');
       });
-  }, [getCurrentLocation]);
+  }, [userLocation]);
 
   return (
     <>
