@@ -1,17 +1,6 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useContext, useState, useRef} from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  TouchableHighlight,
-  Button,
-  StatusBar,
-} from 'react-native';
+import React, {useContext, useState, useRef, useEffect} from 'react';
+import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-import {useEffect} from 'react';
 import {LocationContext} from '../../context/LocationContext';
 import {getDistanceFromLatLonInKm} from '../../helpers/Distance';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -22,9 +11,7 @@ import Geolocation from '@react-native-community/geolocation';
 interface Props
   extends NativeStackScreenProps<RootStackParamList, 'DistanceScreen'> {}
 
-const DistanceScreen = ({route, navigation}: Props) => {
-  //const initialPosition = route.params;
-
+const DistanceScreen = ({navigation}: Props) => {
   const {
     seconds,
     minutes,
@@ -36,11 +23,8 @@ const DistanceScreen = ({route, navigation}: Props) => {
 
   const [initialPosition, setInitialPosition] =
     useState<Location>(userLocation);
-
-  const [finalPosition, setFinalPosition] = useState(userLocation);
-
-  //const [line, setLine] = useState<Location>();
-  const [routeline, setRouteLines] = useState([]);
+  const [finalPosition, setFinalPosition] = useState<Location>(userLocation);
+  const [routeline, setRouteLines] = useState<Location[]>([]);
 
   useEffect(() => {
     getCurrentLocation()
@@ -72,8 +56,6 @@ const DistanceScreen = ({route, navigation}: Props) => {
           latitude: coords.latitude,
           longitude: coords.longitude,
         };
-
-        //setLine(location);
         setRouteLines(routes => [...routes, location]);
       },
       err => console.log(err),

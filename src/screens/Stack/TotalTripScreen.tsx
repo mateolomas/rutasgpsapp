@@ -1,20 +1,11 @@
 import React, {useContext} from 'react';
-import {
-  View,
-  Text,
-  Button,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Map} from '../../components/Map';
 import {LocationContext} from '../../context/LocationContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigation/NativeStack';
-import Polyline from 'react-native-maps';
 
 interface Props
   extends NativeStackScreenProps<RootStackParamList, 'TotalTripScreen'> {}
@@ -22,10 +13,7 @@ interface Props
 const TotalTripScreen = ({route, navigation}: Props) => {
   const trip = route.params;
 
-  console.log(trip, 'tripparam');
-
-  const {seconds, start, minutes, hours, pause, reset, routelines} =
-    useContext(LocationContext);
+  const {pause, reset} = useContext(LocationContext);
 
   const ElementToSave = new Date().toString();
 
@@ -77,7 +65,7 @@ const TotalTripScreen = ({route, navigation}: Props) => {
             fontWeight: 'bold',
             fontStyle: 'italic',
           }}>
-          {Math.round(trip.distance * 100) / 100}
+          {Math.round(Number(trip.distance) * 100) / 100}
         </Text>
         <Text
           style={{

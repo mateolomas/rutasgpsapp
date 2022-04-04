@@ -3,7 +3,6 @@ import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Map} from '../../components/Map';
-import {useNavigation} from '@react-navigation/native';
 import {LocationContext} from '../../context/LocationContext';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigation/NativeStack';
@@ -11,9 +10,9 @@ import {RootStackParamList} from '../../navigation/NativeStack';
 interface Props
   extends NativeStackScreenProps<RootStackParamList, 'HomeScreen'> {}
 
-const HomeScreen = ({route, navigation}: Props) => {
+const HomeScreen = ({navigation}: Props) => {
   const {top} = useSafeAreaInsets();
-  const {start, userLocation, initialPosition} = useContext(LocationContext);
+  const {start, userLocation} = useContext(LocationContext);
 
   return (
     <>

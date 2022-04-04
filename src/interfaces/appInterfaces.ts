@@ -8,3 +8,23 @@ export interface Location {
     speed?: Number,
 }
 
+
+export interface RouteInfo {
+    routeId?: Location,
+    initialPosition?: Location,
+    finalPosition?: Location,
+    routeline: Location[],
+    distance: Number,
+}
+
+export interface TotalTrip {
+    routeId?: string,
+    initialPosition?: Location,
+    finalPosition?: Location,
+    routeList: Location[],
+    distance: Number,
+    seconds: Number,
+    minutes: Number,
+    hours: Number,
+    
+}

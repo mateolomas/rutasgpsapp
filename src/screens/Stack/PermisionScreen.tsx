@@ -1,20 +1,6 @@
 import React from 'react';
-import {
-  Button,
-  Platform,
-  StyleSheet,
-  Text,
-  Touchable,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {PermissionsContext} from '../../context/PermissionsContext';
-import {
-  check,
-  PERMISSIONS,
-  PermissionStatus,
-  request,
-} from 'react-native-permissions';
 
 const PermisionScreen = () => {
   const {askLocationPermission, checkLocationPermission, permissions} =

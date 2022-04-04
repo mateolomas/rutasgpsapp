@@ -1,19 +1,16 @@
 import React, {useContext} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useNavigation} from '@react-navigation/native';
 import {Map} from '../../components/Map';
 import {LocationContext} from '../../context/LocationContext';
-import {useLocation} from '../../hooks/useLocation';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigation/NativeStack';
-import {Location} from '../../interfaces/appInterfaces';
 
 interface Props
   extends NativeStackScreenProps<RootStackParamList, 'RouteScreen'> {}
 
 const RouteScreen = ({route, navigation}: Props) => {
-  const finalPosition: Location = route.params.finalPosition;
+  const finalPosition = route.params.finalPosition;
   const routeList = route.params.routeline;
   const distance = route.params.distance;
 
@@ -23,7 +20,7 @@ const RouteScreen = ({route, navigation}: Props) => {
   return (
     <>
       <Map
-        coords={finalPosition}
+        coords={finalPosition!}
         showUserLocation={false}
         polyline={routeList}
         markers={routeList}
@@ -193,7 +190,7 @@ const RouteScreen = ({route, navigation}: Props) => {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('DistanceScreen');
+              navigation.navigate('DistanceScreen', finalPosition!);
               start();
             }}
             style={{}}>

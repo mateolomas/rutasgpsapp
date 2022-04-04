@@ -8,15 +8,15 @@ import DistanceScreen from '../screens/Stack/DistanceScreen';
 import RouteScreen from '../screens/Stack/RouteScreen';
 import TotalTripScreen from '../screens/Stack/TotalTripScreen';
 import HomeScreen from '../screens/Stack/HomeScreen';
-import {Location} from '../interfaces/appInterfaces';
+import {Location, RouteInfo, TotalTrip} from '../interfaces/appInterfaces';
 
 export type RootStackParamList = {
   HomeScreen: undefined;
   PermisionScreen: undefined;
   LoadingScreen: undefined;
-  DistanceScreen: undefined;
-  RouteScreen: undefined;
-  TotalTripScreen: undefined;
+  DistanceScreen: Location;
+  RouteScreen: RouteInfo;
+  TotalTripScreen: TotalTrip;
 };
 
 const Stack = createNativeStackNavigator();
