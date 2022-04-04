@@ -74,7 +74,6 @@ export const Map = ({
   if (!hasLocation) {
     return <LoadingScreen />;
   }
-  console.log(coords, 'coords');
 
   return (
     <>

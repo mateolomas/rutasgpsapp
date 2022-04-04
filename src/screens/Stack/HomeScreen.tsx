@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -6,13 +6,30 @@ import {Map} from '../../components/Map';
 import {LocationContext} from '../../context/LocationContext';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigation/NativeStack';
+import {Location} from '../../interfaces/appInterfaces';
 
 interface Props
   extends NativeStackScreenProps<RootStackParamList, 'HomeScreen'> {}
 
 const HomeScreen = ({navigation}: Props) => {
   const {top} = useSafeAreaInsets();
-  const {start, userLocation} = useContext(LocationContext);
+  const {start, userLocation, getCurrentLocation} = useContext(LocationContext);
+
+  const [initialPosition, setInitialPosition] = useState<Location>({
+    latitude: 0,
+    longitude: 0,
+  });
+
+  useEffect(() => {
+    getCurrentLocation()
+      .then((location: Location) => {
+        setInitialPosition(location);
+        console.log('INITIALposition', location);
+      })
+      .catch((err: any) => {
+        console.log(err, 'error');
+      });
+  }, [getCurrentLocation]);
 
   return (
     <>
@@ -130,7 +147,7 @@ const HomeScreen = ({navigation}: Props) => {
         <TouchableOpacity
           onPress={() => {
             start();
-            navigation.navigate('DistanceScreen', userLocation);
+            navigation.navigate('DistanceScreen', initialPosition);
           }}>
           <View
             style={{

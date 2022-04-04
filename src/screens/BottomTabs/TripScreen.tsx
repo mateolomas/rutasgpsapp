@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, Text, Button, TouchableOpacity} from 'react-native';
+import {View, Text, Button, TouchableOpacity, ScrollView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useStotage} from '../../hooks/useStorage';
 
@@ -30,25 +30,26 @@ const TripScreen = () => {
       <Text>{JSON.stringify(trips)}</Text>
       <Button title="Load myData" onPress={logCurrentStorage} />
       <Button title="Erase myData" onPress={removeMyData} /> */}
-
-      {trips &&
-        trips.map((trip, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => {
-              getMyData(trip);
-            }}>
-            <View
-              style={{
-                width: '100%',
-                height: 50,
-                backgroundColor: 'grey',
-                marginVertical: 5,
+      <ScrollView>
+        {trips &&
+          trips.map((trip, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => {
+                getMyData(trip);
               }}>
-              <Text>{trip}</Text>
-            </View>
-          </TouchableOpacity>
-        ))}
+              <View
+                style={{
+                  width: '100%',
+                  height: 50,
+                  backgroundColor: 'grey',
+                  marginVertical: 5,
+                }}>
+                <Text>{trip}</Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+      </ScrollView>
       <Text>{JSON.stringify(tripInfo)}</Text>
     </View>
   );

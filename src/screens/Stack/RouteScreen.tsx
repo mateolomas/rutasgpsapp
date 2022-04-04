@@ -14,8 +14,16 @@ const RouteScreen = ({route, navigation}: Props) => {
   const routeList = route.params.routeline;
   const distance = route.params.distance;
 
-  const {seconds, start, minutes, hours, pause, reset, hasLocation} =
-    useContext(LocationContext);
+  const {
+    seconds,
+    start,
+    minutes,
+    hours,
+    pause,
+    reset,
+    hasLocation,
+    stopFollowUserLocation,
+  } = useContext(LocationContext);
 
   console.log(hasLocation, 'hasLocation');
 
@@ -166,6 +174,7 @@ const RouteScreen = ({route, navigation}: Props) => {
           }}>
           <TouchableOpacity
             onPress={() => {
+              stopFollowUserLocation();
               navigation.navigate('TotalTripScreen', {
                 seconds,
                 minutes,

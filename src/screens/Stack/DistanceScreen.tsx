@@ -2,7 +2,10 @@ import React, {useContext, useState, useRef, useEffect} from 'react';
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {LocationContext} from '../../context/LocationContext';
-import {getDistanceFromLatLonInKm} from '../../helpers/Distance';
+import {
+  getDistanceFromLatLonInKm,
+  getDistanceFromArray,
+} from '../../helpers/Distance';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigation/NativeStack';
 import {Location} from '../../interfaces/appInterfaces';
@@ -11,25 +14,25 @@ import Geolocation from '@react-native-community/geolocation';
 interface Props
   extends NativeStackScreenProps<RootStackParamList, 'DistanceScreen'> {}
 
-const DistanceScreen = ({navigation}: Props) => {
+const DistanceScreen = ({navigation, route}: Props) => {
+  const initialPosition = route.params;
   const {
     seconds,
     minutes,
     pause,
-
     userLocation,
     getCurrentLocation,
     stopFollowUserLocation,
   } = useContext(LocationContext);
 
-  const [initialPosition, setInitialPosition] =
-    useState<Location>(userLocation);
+  /* const [initialPosition, setInitialPosition] =
+    useState<Location>(userLocation); */
   const [finalPosition, setFinalPosition] = useState<Location>(userLocation);
+
   const [routeline, setRouteLines] = useState<Location[]>([
     initialPosition,
-    userLocation,
+    finalPosition,
   ]);
-
   useEffect(() => {
     getCurrentLocation()
       .then((location: Location) => {
@@ -39,14 +42,24 @@ const DistanceScreen = ({navigation}: Props) => {
       .catch((err: any) => {
         console.log(err, 'error');
       });
-  }, [finalPosition]);
+  }, [getCurrentLocation]);
 
   useEffect(() => {
+    if (distance) return;
     followUserLocation();
     return () => {
       stopFollowUserLocation();
     };
-  }, [finalPosition]);
+  }, [userLocation]);
+
+  /*   const distance = getDistanceFromLatLonInKm(
+    initialPosition.latitude,
+    initialPosition.longitude,
+    finalPosition.latitude,
+    finalPosition.longitude,
+  ); */
+
+  const distance = getDistanceFromArray(routeline);
 
   const isMounted = useRef(true);
   const watchId = useRef<number>();
@@ -60,6 +73,7 @@ const DistanceScreen = ({navigation}: Props) => {
           latitude: coords.latitude,
           longitude: coords.longitude,
         };
+
         setRouteLines(routes => [...routes, location]);
       },
       err => console.log(err),
@@ -67,15 +81,8 @@ const DistanceScreen = ({navigation}: Props) => {
     );
   };
 
-  const distance = getDistanceFromLatLonInKm(
-    initialPosition.latitude,
-    initialPosition.longitude,
-    finalPosition.latitude,
-    finalPosition.longitude,
-  );
-
   console.log('distance: ', distance);
-  console.log('route lines: ', routeline);
+  console.log('routeline: ', routeline);
 
   return (
     <View style={styles.container}>
