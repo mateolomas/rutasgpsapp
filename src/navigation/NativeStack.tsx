@@ -8,6 +8,7 @@ import DistanceScreen from '../screens/Stack/DistanceScreen';
 import RouteScreen from '../screens/Stack/RouteScreen';
 import TotalTripScreen from '../screens/Stack/TotalTripScreen';
 import HomeScreen from '../screens/Stack/HomeScreen';
+import {Location} from '../interfaces/appInterfaces';
 
 export type RootStackParamList = {
   HomeScreen: undefined;

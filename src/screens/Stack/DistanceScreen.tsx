@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useContext} from 'react';
+import React, {useContext, useState, useRef} from 'react';
 import {
   Text,
   View,
@@ -14,34 +14,81 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {useEffect} from 'react';
 import {LocationContext} from '../../context/LocationContext';
 import {getDistanceFromLatLonInKm} from '../../helpers/Distance';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../navigation/NativeStack';
+import {Location} from '../../interfaces/appInterfaces';
+import Geolocation from '@react-native-community/geolocation';
 
-const DistanceScreen = () => {
-  const navigation = useNavigation();
+interface Props
+  extends NativeStackScreenProps<RootStackParamList, 'DistanceScreen'> {}
+
+const DistanceScreen = ({route, navigation}: Props) => {
+  //const initialPosition = route.params;
 
   const {
     seconds,
-    start,
     minutes,
-    hours,
     pause,
-    stop,
-    followUserLocation,
     userLocation,
-    initialPosition,
-    routelines,
+    getCurrentLocation,
+    stopFollowUserLocation,
   } = useContext(LocationContext);
+
+  const [initialPosition, setInitialPosition] =
+    useState<Location>(userLocation);
+
+  const [finalPosition, setFinalPosition] = useState(userLocation);
+
+  const [line, setLine] = useState<Location>();
+  const [routeline, setRouteLines] = useState([]);
+
+  useEffect(() => {
+    getCurrentLocation()
+      .then((location: Location) => {
+        setFinalPosition(location);
+        console.log('USEEFFECT1', location);
+      })
+      .catch((err: any) => {
+        console.log(err, 'error');
+      });
+  }, [finalPosition]);
 
   useEffect(() => {
     followUserLocation();
-  }, []);
-  ///
+  }, [finalPosition]);
+
+  const isMounted = useRef(true);
+  const watchId = useRef<number>();
+
+  const followUserLocation = () => {
+    watchId.current = Geolocation.watchPosition(
+      ({coords}) => {
+        if (!isMounted.current) return;
+
+        const location: Location = {
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+        };
+
+        setLine(location);
+        setRouteLines(routes => [...routes, location]);
+      },
+      err => console.log(err),
+      {enableHighAccuracy: true, distanceFilter: 1},
+    );
+  };
 
   const distance = getDistanceFromLatLonInKm(
     initialPosition.latitude,
     initialPosition.longitude,
-    userLocation.latitude,
-    userLocation.longitude,
+    finalPosition.latitude,
+    finalPosition.longitude,
   );
+
+  console.log('distance: ', distance);
+  console.log('initialPosition: ', initialPosition);
+  console.log('finalPosition: ', finalPosition);
+  console.log('route lines: ', routeline);
 
   return (
     <View style={styles.container}>
@@ -61,15 +108,18 @@ const DistanceScreen = () => {
           {Math.round(distance * 100) / 100}
         </Text>
         <Text style={styles.distanceKm}>Kilometers</Text>
-        <Text>{JSON.stringify(userLocation)}</Text>
-        <Text>{JSON.stringify(initialPosition)}</Text>
       </View>
 
       <TouchableOpacity
         style={styles.pauseButton}
         onPress={() => {
           pause();
-          navigation.navigate('RouteScreen', {routelines, distance});
+          setFinalPosition(finalPosition);
+          navigation.navigate('RouteScreen', {
+            finalPosition,
+            routeline,
+            distance,
+          });
         }}>
         <View style={styles.pauseIcon}>
           <Icon name="md-pause" size={30} color="white" />

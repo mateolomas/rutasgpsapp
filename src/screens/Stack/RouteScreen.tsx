@@ -5,16 +5,29 @@ import {useNavigation} from '@react-navigation/native';
 import {Map} from '../../components/Map';
 import {LocationContext} from '../../context/LocationContext';
 import {useLocation} from '../../hooks/useLocation';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../navigation/NativeStack';
+import {Location} from '../../interfaces/appInterfaces';
 
-const RouteScreen = () => {
-  const navigation = useNavigation();
+interface Props
+  extends NativeStackScreenProps<RootStackParamList, 'RouteScreen'> {}
+
+const RouteScreen = ({route, navigation}: Props) => {
+  const finalPosition: Location = route.params.finalPosition;
+  const routeList = route.params.routeline;
+  const distance = route.params.distance;
 
   const {seconds, start, minutes, hours, pause, reset} =
     useContext(LocationContext);
 
   return (
     <>
-      <Map />
+      <Map
+        coords={finalPosition}
+        showUserLocation={false}
+        polyline={routeList}
+      />
+
       <View
         style={{
           backgroundColor: 'white',
@@ -53,7 +66,7 @@ const RouteScreen = () => {
                   fontSize: 30,
                   bottom: 10,
                 }}>
-                __
+                {1}
               </Text>
               <Text
                 style={{
@@ -153,9 +166,16 @@ const RouteScreen = () => {
           }}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('TotalTripScreen', {seconds});
+              navigation.navigate('TotalTripScreen', {
+                seconds,
+                minutes,
+                hours,
+                routeList,
+                distance,
+              });
               pause();
               reset();
+              pause();
             }}>
             <View
               style={{

@@ -29,8 +29,36 @@ const TripScreen = () => {
     console.log(keys);
   };
 
+  const getMyData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('trip');
+      console.log(jsonValue);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   // example console.log result:
   // ['@MyApp_user', '@MyApp_key']
+  const logCurrentStorage = () => {
+    AsyncStorage.getAllKeys().then(keyArray => {
+      AsyncStorage.multiGet(keyArray).then(keyValArray => {
+        let myStorage: any = {};
+        for (let keyVal of keyValArray) {
+          myStorage[keyVal[0]] = keyVal[1];
+        }
+
+        console.log('CURRENT STORAGE: ', myStorage);
+      });
+    });
+  };
+
+  const removeMyData = async () => {
+    try {
+      await AsyncStorage.clear();
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <View
@@ -43,6 +71,8 @@ const TripScreen = () => {
 
       <Button title="Load Data" onPress={getAllKeys} />
       <Text>{JSON.stringify(trips)}</Text>
+      <Button title="Load myData" onPress={logCurrentStorage} />
+      <Button title="Erase myData" onPress={removeMyData} />
     </View>
   );
 };

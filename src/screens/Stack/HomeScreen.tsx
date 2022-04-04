@@ -1,17 +1,19 @@
 import React, {useContext} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import MapView from 'react-native-maps';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Map} from '../../components/Map';
-import MapButtons from '../../components/MapButtons';
 import {useNavigation} from '@react-navigation/native';
 import {LocationContext} from '../../context/LocationContext';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../navigation/NativeStack';
 
-const HomeScreen = () => {
+interface Props
+  extends NativeStackScreenProps<RootStackParamList, 'HomeScreen'> {}
+
+const HomeScreen = ({route, navigation}: Props) => {
   const {top} = useSafeAreaInsets();
-  const navigation = useNavigation();
-  const {start} = useContext(LocationContext);
+  const {start, initialPosition} = useContext(LocationContext);
 
   return (
     <>
@@ -103,7 +105,7 @@ const HomeScreen = () => {
         </ScrollView>
       </View>
 
-      <Map />
+      <Map coords={initialPosition} />
 
       <View
         style={{
@@ -129,7 +131,7 @@ const HomeScreen = () => {
         <TouchableOpacity
           onPress={() => {
             start();
-            navigation.navigate('DistanceScreen');
+            navigation.navigate('DistanceScreen', initialPosition);
           }}>
           <View
             style={{

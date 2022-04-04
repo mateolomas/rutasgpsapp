@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
 
     alignSelf: 'center',
     backgroundColor: 'white',
-    width: 30,
-    height: 30,
+    width: 50,
+    height: 50,
     borderRadius: 30,
     zIndex: 9999,
   },

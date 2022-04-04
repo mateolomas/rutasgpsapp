@@ -1,5 +1,12 @@
 import React, {useContext} from 'react';
-import {View, Text, Button, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  Button,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Map} from '../../components/Map';
 import {LocationContext} from '../../context/LocationContext';
@@ -7,31 +14,25 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigation/NativeStack';
+import Polyline from 'react-native-maps';
 
 interface Props
   extends NativeStackScreenProps<RootStackParamList, 'TotalTripScreen'> {}
 
-const TotalTripScreen = ({route}: Props) => {
+const TotalTripScreen = ({route, navigation}: Props) => {
   const trip = route.params;
+
   console.log(trip, 'tripparam');
 
-  const navigation = useNavigation();
   const {seconds, start, minutes, hours, pause, reset, routelines} =
     useContext(LocationContext);
 
-  const LocationInfo = useContext(LocationContext);
-  console.log(LocationInfo, 'location Info');
+  const ElementToSave = new Date().toString();
+
   //saving to local storage
   const saveToLocalStorage = () => {
-    const trip = {
-      seconds,
-      minutes,
-      hours,
-      days: 0,
-      routelines,
-    };
     try {
-      AsyncStorage.setItem('trip', JSON.stringify(trip));
+      AsyncStorage.setItem(ElementToSave, JSON.stringify(trip));
     } catch (error) {
       console.log(error);
     }
@@ -76,7 +77,7 @@ const TotalTripScreen = ({route}: Props) => {
             fontWeight: 'bold',
             fontStyle: 'italic',
           }}>
-          0.07
+          {Math.round(trip.distance * 100) / 100}
         </Text>
         <Text
           style={{
@@ -137,7 +138,7 @@ const TotalTripScreen = ({route}: Props) => {
                   fontSize: 30,
                   bottom: 10,
                 }}>
-                __
+                {trip.hours}:{trip.minutes}:{trip.seconds}
               </Text>
               <Text
                 style={{
@@ -210,29 +211,49 @@ const TotalTripScreen = ({route}: Props) => {
         </View>
       </View>
 
-      <View>
-        <Button
-          title="Save Trip"
-          onPress={() => {
-            saveToLocalStorage();
-            pause();
-            reset();
-            navigation.navigate('HomeScreen');
-          }}
+      <View style={{height: 390}}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+          <TouchableOpacity
+            onPress={() => {
+              saveToLocalStorage();
+              pause();
+              reset();
+              navigation.navigate('HomeScreen');
+            }}>
+            <View style={styles.buttonBlue}>
+              <Text>Save trip</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <View style={styles.buttonRed}>
+              <Text>Delete trip</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <Map
+          showUserLocation={false}
+          coords={trip.routeList[0]}
+          polyline={trip.routeList}
         />
-        <Button title="Delete Trip" />
-        <ScrollView>
-          <View style={{left: 50}}>
-            <Text>{JSON.stringify(minutes)} minutes</Text>
-            <Text>{JSON.stringify(seconds)} seconds</Text>
-            <Text>{JSON.stringify(hours)} hours</Text>
-            <Text>{JSON.stringify(routelines)}</Text>
-            <Text>{JSON.stringify(LocationInfo)}</Text>
-          </View>
-        </ScrollView>
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  buttonBlue: {
+    backgroundColor: '#01bfff',
+    borderRadius: 10,
+    padding: 10,
+    margin: 20,
+  },
+  buttonRed: {
+    backgroundColor: '#ff0000',
+    borderRadius: 10,
+    padding: 10,
+    margin: 20,
+  },
+});
 
 export default TotalTripScreen;

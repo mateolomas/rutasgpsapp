@@ -1,14 +1,23 @@
 import React, {useEffect, useRef, useState} from 'react';
 import MapView, {Marker, Polyline, PROVIDER_GOOGLE} from 'react-native-maps';
 import {useLocation} from '../hooks/useLocation';
+import {Location} from '../interfaces/appInterfaces';
 import LoadingScreen from '../screens/Stack/LoadingScreen';
 import Fab from './Fab';
 
 interface Props {
   markers?: Marker[];
+  coords: Location;
+  polyline?: Location[];
+  showUserLocation?: boolean;
 }
 
-export const Map = ({markers}: Props) => {
+export const Map = ({
+  markers,
+  coords,
+  polyline,
+  showUserLocation = true,
+}: Props) => {
   const [showPolyline, setShowPolyline] = useState(true);
 
   const {
@@ -61,27 +70,27 @@ export const Map = ({markers}: Props) => {
         style={{flex: 1}}
         //provider={PROVIDER_GOOGLE}
         loadingEnabled
-        showsUserLocation
+        showsUserLocation={showUserLocation}
         region={{
-          latitude: initialPosition.latitude,
-          longitude: initialPosition.longitude,
-          latitudeDelta: 0.009,
-          longitudeDelta: 0.0008,
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.00510421,
         }}
         initialRegion={{
-          latitude: initialPosition.latitude,
-          longitude: initialPosition.longitude,
-          latitudeDelta: 0.009,
-          longitudeDelta: 0.0008,
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+          latitudeDelta: 0.0001922,
+          longitudeDelta: 0.0421,
         }}
         onTouchStart={() => (following.current = false)}>
-        {/* {showPolyline && (
+        {showPolyline && (
           <Polyline
-            coordinates={routeLines}
+            coordinates={polyline!}
             strokeColor="black"
             strokeWidth={3}
           />
-        )} */}
+        )}
 
         {/*  <Marker
           image={require('../assets/images/marker.png')}
