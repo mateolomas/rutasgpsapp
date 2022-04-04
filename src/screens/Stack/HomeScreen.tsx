@@ -13,7 +13,7 @@ interface Props
 
 const HomeScreen = ({route, navigation}: Props) => {
   const {top} = useSafeAreaInsets();
-  const {start, initialPosition} = useContext(LocationContext);
+  const {start, userLocation, initialPosition} = useContext(LocationContext);
 
   return (
     <>
@@ -105,7 +105,7 @@ const HomeScreen = ({route, navigation}: Props) => {
         </ScrollView>
       </View>
 
-      <Map coords={initialPosition} />
+      <Map coords={userLocation} zoom={0.009} />
 
       <View
         style={{
@@ -131,7 +131,7 @@ const HomeScreen = ({route, navigation}: Props) => {
         <TouchableOpacity
           onPress={() => {
             start();
-            navigation.navigate('DistanceScreen', initialPosition);
+            navigation.navigate('DistanceScreen', userLocation);
           }}>
           <View
             style={{

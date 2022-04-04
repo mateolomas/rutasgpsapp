@@ -39,7 +39,7 @@ const DistanceScreen = ({route, navigation}: Props) => {
 
   const [finalPosition, setFinalPosition] = useState(userLocation);
 
-  const [line, setLine] = useState<Location>();
+  //const [line, setLine] = useState<Location>();
   const [routeline, setRouteLines] = useState([]);
 
   useEffect(() => {
@@ -55,6 +55,9 @@ const DistanceScreen = ({route, navigation}: Props) => {
 
   useEffect(() => {
     followUserLocation();
+    return () => {
+      stopFollowUserLocation();
+    };
   }, [finalPosition]);
 
   const isMounted = useRef(true);
@@ -70,7 +73,7 @@ const DistanceScreen = ({route, navigation}: Props) => {
           longitude: coords.longitude,
         };
 
-        setLine(location);
+        //setLine(location);
         setRouteLines(routes => [...routes, location]);
       },
       err => console.log(err),

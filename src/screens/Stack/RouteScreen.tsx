@@ -26,6 +26,7 @@ const RouteScreen = ({route, navigation}: Props) => {
         coords={finalPosition}
         showUserLocation={false}
         polyline={routeList}
+        markers={routeList}
       />
 
       <View

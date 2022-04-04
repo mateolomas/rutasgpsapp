@@ -18,11 +18,8 @@ interface Props {
 const Fab = ({iconName, onPress, style}: Props) => {
   return (
     <View style={{...(style as any)}}>
-      <TouchableOpacity
-        onPress={onPress}
-        activeOpacity={0.8}
-        style={styles.blackbutton}>
-        <Icon name={iconName} size={30} color="black" />
+      <TouchableOpacity onPress={onPress} style={styles.blackbutton}>
+        <Icon name={iconName} size={50} color="black" />
       </TouchableOpacity>
     </View>
   );
@@ -31,7 +28,7 @@ const Fab = ({iconName, onPress, style}: Props) => {
 const styles = StyleSheet.create({
   blackbutton: {
     justifyContent: 'center',
-
+    alignItems: 'center',
     alignSelf: 'center',
     backgroundColor: 'white',
     width: 50,

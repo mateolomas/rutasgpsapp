@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, Text, Button} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, Text, Button, TouchableOpacity} from 'react-native';
 import {useStopwatch} from 'react-timer-hook';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const TripScreen = () => {
   const [trips, setTrips] = React.useState([]);
+  const [tripInfo, setTripInfo] = React.useState({});
 
   const getData = async () => {
     try {
@@ -29,10 +30,10 @@ const TripScreen = () => {
     console.log(keys);
   };
 
-  const getMyData = async () => {
+  const getMyData = async (trip: any) => {
     try {
-      const jsonValue = await AsyncStorage.getItem('trip');
-      console.log(jsonValue);
+      const jsonValue = await AsyncStorage.getItem(trip);
+      jsonValue != null ? setTripInfo(JSON.parse(jsonValue)) : null;
     } catch (e) {
       console.log(e);
     }
@@ -60,6 +61,10 @@ const TripScreen = () => {
     }
   };
 
+  useEffect(() => {
+    getAllKeys();
+  }, []);
+
   return (
     <View
       style={{
@@ -69,10 +74,30 @@ const TripScreen = () => {
       }}>
       <Text>Trips</Text>
 
-      <Button title="Load Data" onPress={getAllKeys} />
+      {/* <Button title="Load Data" onPress={getAllKeys} />
       <Text>{JSON.stringify(trips)}</Text>
       <Button title="Load myData" onPress={logCurrentStorage} />
-      <Button title="Erase myData" onPress={removeMyData} />
+      <Button title="Erase myData" onPress={removeMyData} /> */}
+
+      {trips &&
+        trips.map((trip, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={() => {
+              getMyData(trip);
+            }}>
+            <View
+              style={{
+                width: '100%',
+                height: 50,
+                backgroundColor: 'grey',
+                marginVertical: 5,
+              }}>
+              <Text>{trip}</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
+      <Text>{JSON.stringify(tripInfo)}</Text>
     </View>
   );
 };

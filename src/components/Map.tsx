@@ -1,15 +1,19 @@
 import React, {useEffect, useRef, useState} from 'react';
+import {Dimensions} from 'react-native';
 import MapView, {Marker, Polyline, PROVIDER_GOOGLE} from 'react-native-maps';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {useLocation} from '../hooks/useLocation';
 import {Location} from '../interfaces/appInterfaces';
 import LoadingScreen from '../screens/Stack/LoadingScreen';
 import Fab from './Fab';
 
 interface Props {
-  markers?: Marker[];
+  markers?: Location[];
   coords: Location;
   polyline?: Location[];
   showUserLocation?: boolean;
+  isMarker?: boolean;
+  zoom?: number;
 }
 
 export const Map = ({
@@ -17,11 +21,18 @@ export const Map = ({
   coords,
   polyline,
   showUserLocation = true,
+  zoom = 0.009,
 }: Props) => {
   const [showPolyline, setShowPolyline] = useState(true);
 
+  let {width, height} = Dimensions.get('window');
+  const ASPECT_RATIO = width / height;
+  const LATITUDE_DELTA = zoom;
+  const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
   const {
     hasLocation,
+
     initialPosition,
     getCurrentLocation,
     followUserLocation,
@@ -62,50 +73,72 @@ export const Map = ({
   if (!hasLocation) {
     return <LoadingScreen />;
   }
+  console.log(coords, 'coords');
 
   return (
     <>
       <MapView
         ref={el => (mapViewRef.current = el!)}
         style={{flex: 1}}
-        //provider={PROVIDER_GOOGLE}
+        provider={PROVIDER_GOOGLE}
         loadingEnabled
         showsUserLocation={showUserLocation}
         region={{
           latitude: coords.latitude,
           longitude: coords.longitude,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.00510421,
+          latitudeDelta: LATITUDE_DELTA,
+          longitudeDelta: LONGITUDE_DELTA,
+          /* latitudeDelta: 0.0022,
+          longitudeDelta: 0.0121, */
         }}
         initialRegion={{
-          latitude: coords.latitude,
-          longitude: coords.longitude,
-          latitudeDelta: 0.0001922,
-          longitudeDelta: 0.0421,
+          latitude: initialPosition.latitude,
+          longitude: initialPosition.longitude,
+          latitudeDelta: LATITUDE_DELTA,
+          longitudeDelta: LONGITUDE_DELTA,
         }}
         onTouchStart={() => (following.current = false)}>
         {showPolyline && (
           <Polyline
             coordinates={polyline!}
             strokeColor="black"
-            strokeWidth={3}
+            strokeWidth={5}
+            lineJoin="round"
+            strokeColors={[
+              '#7F0000', // no color, creates a "long" gradient between the previous and next coordinate
+
+              '#B24112',
+              '#E5845C',
+              '#238C23',
+              '#7F0000',
+            ]}
           />
         )}
 
-        {/*  <Marker
-          image={require('../assets/images/marker.png')}
-          coordinate={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-          }}
-          title="Esto es un título"
-          description="Esto es una descripción del marcador"
-        /> */}
+        {markers && (
+          <>
+            <Marker
+              coordinate={{
+                latitude: markers[0].latitude,
+                longitude: markers[0].longitude,
+              }}>
+              <Icon name="flag" size={50} color="black" />
+            </Marker>
+
+            <Marker
+              coordinate={{
+                latitude: markers[markers.length - 1].latitude,
+                longitude: markers[markers.length - 1].longitude,
+              }}>
+              <Icon name="golf" size={50} color="black" />
+            </Marker>
+          </>
+        )}
       </MapView>
 
       <Fab
         iconName="compass-outline"
-        onPress={centerPosition}
+        onPress={() => centerPosition}
         style={{
           position: 'absolute',
           bottom: 250,
