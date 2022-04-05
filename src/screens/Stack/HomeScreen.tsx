@@ -45,12 +45,7 @@ const HomeScreen = ({navigation}: Props) => {
       .catch((err: any) => {
         console.log(err, 'error');
       });
-<<<<<<< HEAD
-    /* return () => {
-      stopFollowUserLocation();
-    }; */
-=======
->>>>>>> parent of a03f708 (fix styles)
+
   }, [userLocation]);
 
   return (
