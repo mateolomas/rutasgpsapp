@@ -14,14 +14,21 @@ interface Props
 
 const HomeScreen = ({navigation}: Props) => {
   const {top} = useSafeAreaInsets();
-  const {start, userLocation, getCurrentLocation} = useContext(LocationContext);
+  const {start, userLocation, getCurrentLocation, stopFollowUserLocation} =
+    useContext(LocationContext);
 
   const [initialPosition, setInitialPosition] = useState<Location>({
     latitude: 0,
     longitude: 0,
   });
 
-  const [lastTrip, setLastTrip] = useState<TotalTrip>();
+  const [lastTrip, setLastTrip] = useState<TotalTrip>({
+    distance: 0,
+    routeList: [initialPosition],
+    minutes: 0,
+    seconds: 0,
+    hours: 0,
+  });
 
   const getLastTrip = async () => {
     await getAllTrips()
@@ -35,7 +42,7 @@ const HomeScreen = ({navigation}: Props) => {
 
   useEffect(() => {
     getLastTrip();
-  }, [initialPosition]);
+  }, [stopFollowUserLocation]);
 
   useEffect(() => {
     getCurrentLocation()
@@ -45,6 +52,9 @@ const HomeScreen = ({navigation}: Props) => {
       .catch((err: any) => {
         console.log(err, 'error');
       });
+    return () => {
+      stopFollowUserLocation();
+    };
   }, [userLocation]);
 
   return (

@@ -132,66 +132,6 @@ const TotalTripScreen = ({route, navigation}: Props) => {
             </View>
           </View>
         </View>
-
-        <View>
-          <View
-            style={{
-              width: '100%',
-              justifyContent: 'space-evenly',
-              flexDirection: 'row',
-            }}>
-            <View style={{}}>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-                __
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                Pace
-              </Text>
-            </View>
-
-            <View>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-                __
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                BPM
-              </Text>
-            </View>
-
-            <View>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-                __
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                Time
-              </Text>
-            </View>
-          </View>
-        </View>
       </View>
 
       <View style={{height: 390}}>

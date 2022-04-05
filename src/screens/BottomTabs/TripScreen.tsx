@@ -49,9 +49,14 @@ const TripScreen = ({navigation}: Props) => {
 
   return (
     <View style={styles.container}>
+      <Image
+        source={require('../../assets/images/runner.jpeg')}
+        style={{position: 'absolute'}}
+      />
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Your Trips</Text>
       </View>
+
       <ScrollView style={{width: '100%'}}>
         {trips &&
           trips.map((trip, index) => (
@@ -92,15 +97,16 @@ const styles = StyleSheet.create({
 
   titleContainer: {
     margin: 20,
-    backgroundColor: 'white',
+
     top: 50,
     height: 120,
     alignItems: 'center',
     width: '100%',
   },
   title: {
-    fontSize: 20,
+    fontSize: 50,
     fontWeight: 'bold',
+    color: 'white',
     textAlign: 'center',
     margin: 20,
   },
