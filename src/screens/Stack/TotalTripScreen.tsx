@@ -16,16 +16,9 @@ const TotalTripScreen = ({route, navigation}: Props) => {
 
   const {pause, reset} = useContext(LocationContext);
 
-  //const ElementToSave = new Date().toString();
-
   //saving to local storage
   const saveToLocalStorage = async () => {
     await saveTrip(trip);
-    /* try {
-      AsyncStorage.setItem('trip', JSON.stringify(trip));
-    } catch (error) {
-      console.log(error);
-    } */
   };
 
   return (

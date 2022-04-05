@@ -1,11 +1,11 @@
 export interface Location {
     latitude: number
     longitude: number
-    altitude?: Number,
-    timestamp?: Number, //Milliseconds since Unix epoch
-    accuracy?: Number,
-    altitudeAccuracy?: Number,
-    speed?: Number,
+    altitude?: number,
+    timestamp?: number, //Milliseconds since Unix epoch
+    accuracy?: number,
+    altitudeAccuracy?: number,
+    speed?: number,
 }
 
 
@@ -26,5 +26,6 @@ export interface TotalTrip {
     seconds: Number,
     minutes: Number,
     hours: Number,
+    date?: string,
     
 }

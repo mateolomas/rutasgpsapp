@@ -73,6 +73,7 @@ const TripScreen = ({navigation}: Props) => {
                 <Text>
                   Distance: {Math.round(trip.distance * 100) / 100} Km
                 </Text>
+                <Text>Date: {trip.date!}</Text>
               </View>
             </TouchableOpacity>
           ))}

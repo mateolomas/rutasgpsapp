@@ -13,6 +13,7 @@ const RouteScreen = ({route, navigation}: Props) => {
   const finalPosition = route.params.finalPosition!;
   const routeList = route.params.routeline;
   const distance = route.params.distance;
+  const date = new Date().toString();
 
   const {
     seconds,
@@ -179,6 +180,7 @@ const RouteScreen = ({route, navigation}: Props) => {
                 hours,
                 routeList,
                 distance,
+                date,
               });
               pause();
               reset();

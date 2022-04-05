@@ -1,6 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, Button} from 'react-native';
 import {Map} from '../../components/Map';
 import {RootStackParamList} from '../../navigation/TripsInfoStack';
 
@@ -8,9 +8,9 @@ interface Props
   extends NativeStackScreenProps<RootStackParamList, 'TripsInfoScreen'> {}
 
 const TripsInfoScreen = ({route}: Props) => {
-  const finalPosition = route.params.finalPosition;
   const routeList = route.params.routeList;
   const distance = route.params.distance;
+  const date = route.params.date;
 
   return (
     <View style={{flex: 1, width: '100%'}}>
@@ -19,7 +19,9 @@ const TripsInfoScreen = ({route}: Props) => {
         <Text style={styles.distance}>
           Distance: {Math.round(distance * 100) / 100} Km
         </Text>
+        <Text style={styles.distance}>Date: {date!}</Text>
       </View>
+
       <Map
         coords={routeList[routeList.length - 1]}
         markers={routeList}

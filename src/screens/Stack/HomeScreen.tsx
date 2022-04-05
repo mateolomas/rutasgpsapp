@@ -6,7 +6,8 @@ import {Map} from '../../components/Map';
 import {LocationContext} from '../../context/LocationContext';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigation/NativeStack';
-import {Location} from '../../interfaces/appInterfaces';
+import {Location, TotalTrip} from '../../interfaces/appInterfaces';
+import {getAllTrips} from '../../lib/storageTrip';
 
 interface Props
   extends NativeStackScreenProps<RootStackParamList, 'HomeScreen'> {}
@@ -19,6 +20,22 @@ const HomeScreen = ({navigation}: Props) => {
     latitude: 0,
     longitude: 0,
   });
+
+  const [lastTrip, setLastTrip] = useState<TotalTrip>();
+
+  const getLastTrip = async () => {
+    await getAllTrips()
+      .then(res => {
+        setLastTrip(res[res.length - 1]);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getLastTrip();
+  }, [initialPosition]);
 
   useEffect(() => {
     getCurrentLocation()
@@ -101,19 +118,21 @@ const HomeScreen = ({navigation}: Props) => {
                 style={{
                   fontWeight: '300',
                 }}>
-                Try a guided run
+                Last Trip
               </Text>
               <Text
                 style={{
                   fontWeight: 'bold',
                 }}>
-                Third Run
+                {lastTrip?.date?.substring(0, 10)}
               </Text>
+              <Text>{lastTrip?.date?.substring(16, 21)}</Text>
+              <Text>{Math.round(lastTrip!.distance * 100) / 100} Km</Text>
               <Text
                 style={{
                   fontWeight: '400',
                 }}>
-                25 min - Run
+                {lastTrip?.minutes}:{lastTrip?.seconds} min
               </Text>
             </View>
           </View>

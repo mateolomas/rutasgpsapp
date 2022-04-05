@@ -40,15 +40,20 @@ const DistanceScreen = ({navigation, route}: Props) => {
         setRouteLines(routes => [...routes, location]);
       },
       err => console.log(err),
-      {enableHighAccuracy: true, distanceFilter: 1},
+      {
+        enableHighAccuracy: true,
+        distanceFilter: 1,
+        timeout: 200,
+        maximumAge: 200,
+      },
     );
   };
 
   useEffect(() => {
     followUserLocation();
-    /* return () => {
+    return () => {
       stopFollowUserLocation();
-    }; */
+    };
   }, []);
 
   return (
