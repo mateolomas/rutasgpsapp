@@ -49,6 +49,23 @@ const RouteScreen = ({route, navigation}: Props) => {
               justifyContent: 'space-evenly',
               flexDirection: 'row',
             }}>
+            <View style={{}}>
+              <Text
+                style={{
+                  fontWeight: 'bold',
+                  fontSize: 30,
+                  bottom: 10,
+                }}>
+                {Math.round(seconds / 2)}
+              </Text>
+              <Text
+                style={{
+                  fontWeight: '200',
+                }}>
+                Pace
+              </Text>
+            </View>
+
             <View>
               <Text
                 style={{
@@ -56,7 +73,24 @@ const RouteScreen = ({route, navigation}: Props) => {
                   fontSize: 30,
                   bottom: 10,
                 }}>
-                {minutes}:{seconds}
+                {1}
+              </Text>
+              <Text
+                style={{
+                  fontWeight: '200',
+                }}>
+                BPM
+              </Text>
+            </View>
+
+            <View>
+              <Text
+                style={{
+                  fontWeight: 'bold',
+                  fontSize: 30,
+                  bottom: 10,
+                }}>
+                {seconds}
               </Text>
               <Text
                 style={{

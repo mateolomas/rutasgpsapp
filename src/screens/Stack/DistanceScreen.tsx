@@ -54,10 +54,15 @@ const DistanceScreen = ({navigation, route}: Props) => {
 
   useEffect(() => {
     followUserLocation();
-    /* return () => {
+    return () => {
       stopFollowUserLocation();
+<<<<<<< HEAD
     }; */
   }, [userLocation]);
+=======
+    };
+  }, []);
+>>>>>>> parent of 6a96b04 (now working)
 
   return (
     <View style={styles.container}>
