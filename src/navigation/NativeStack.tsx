@@ -69,7 +69,6 @@ export const NativeStack = ({navigation, route}: any) => {
       <Stack.Screen
         options={{
           headerShown: false,
-          presentation: 'fullScreenModal',
         }}
         name="TotalTripScreen"
         component={TotalTripScreen}

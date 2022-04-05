@@ -13,8 +13,7 @@ interface Props
 
 const DistanceScreen = ({navigation, route}: Props) => {
   const initialPosition = route.params;
-  const {seconds, minutes, pause, userLocation, stopFollowUserLocation} =
-    useContext(LocationContext);
+  const {seconds, minutes, pause, userLocation} = useContext(LocationContext);
 
   const [finalPosition, setFinalPosition] = useState<Location>(userLocation);
 
@@ -49,12 +48,16 @@ const DistanceScreen = ({navigation, route}: Props) => {
     );
   };
 
+  const stopFollowUserLocation = () => {
+    if (watchId.current) Geolocation.clearWatch(watchId.current);
+  };
+
   useEffect(() => {
     followUserLocation();
     /* return () => {
       stopFollowUserLocation();
     }; */
-  }, []);
+  }, [userLocation]);
 
   return (
     <View style={styles.container}>
