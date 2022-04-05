@@ -45,12 +45,6 @@ const HomeScreen = ({navigation}: Props) => {
       .catch((err: any) => {
         console.log(err, 'error');
       });
-<<<<<<< HEAD
-=======
-    return () => {
-      stopFollowUserLocation();
-    };
->>>>>>> parent of 6a96b04 (now working)
   }, [userLocation]);
 
   return (
