@@ -51,9 +51,9 @@ const DistanceScreen = ({navigation, route}: Props) => {
 
   useEffect(() => {
     followUserLocation();
-    return () => {
+    /* return () => {
       stopFollowUserLocation();
-    };
+    }; */
   }, []);
 
   return (

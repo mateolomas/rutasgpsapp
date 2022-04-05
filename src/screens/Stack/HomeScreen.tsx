@@ -52,9 +52,9 @@ const HomeScreen = ({navigation}: Props) => {
       .catch((err: any) => {
         console.log(err, 'error');
       });
-    return () => {
+    /* return () => {
       stopFollowUserLocation();
-    };
+    }; */
   }, [userLocation]);
 
   return (
