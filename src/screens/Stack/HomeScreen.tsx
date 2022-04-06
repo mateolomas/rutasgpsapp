@@ -14,14 +14,21 @@ interface Props
 
 const HomeScreen = ({navigation}: Props) => {
   const {top} = useSafeAreaInsets();
-  const {start, userLocation, getCurrentLocation} = useContext(LocationContext);
+  const {start, userLocation, getCurrentLocation, stopFollowUserLocation} =
+    useContext(LocationContext);
 
   const [initialPosition, setInitialPosition] = useState<Location>({
     latitude: 0,
     longitude: 0,
   });
 
-  const [lastTrip, setLastTrip] = useState<TotalTrip>();
+  const [lastTrip, setLastTrip] = useState<TotalTrip>({
+    distance: 0,
+    routeList: [initialPosition],
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
   const getLastTrip = async () => {
     await getAllTrips()
@@ -45,6 +52,9 @@ const HomeScreen = ({navigation}: Props) => {
       .catch((err: any) => {
         console.log(err, 'error');
       });
+    return () => {
+      stopFollowUserLocation();
+    };
   }, [userLocation]);
 
   return (
@@ -126,7 +136,7 @@ const HomeScreen = ({navigation}: Props) => {
                 }}>
                 {lastTrip?.date?.substring(0, 10)}
               </Text>
-              <Text>{lastTrip?.date?.substring(16, 21)}</Text>
+
               <Text>{Math.round(lastTrip!.distance * 100) / 100} Km</Text>
               <Text
                 style={{

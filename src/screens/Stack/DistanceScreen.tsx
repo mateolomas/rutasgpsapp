@@ -57,7 +57,7 @@ const DistanceScreen = ({navigation, route}: Props) => {
     return () => {
       stopFollowUserLocation();
     };
-  }, [userLocation]);
+  }, []);
 
   return (
     <View style={styles.container}>

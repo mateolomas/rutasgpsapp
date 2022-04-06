@@ -5,6 +5,7 @@ import {Map} from '../../components/Map';
 import {LocationContext} from '../../context/LocationContext';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigation/NativeStack';
+import {format} from 'date-fns';
 
 interface Props
   extends NativeStackScreenProps<RootStackParamList, 'RouteScreen'> {}
@@ -13,7 +14,7 @@ const RouteScreen = ({route, navigation}: Props) => {
   const finalPosition = route.params.finalPosition!;
   const routeList = route.params.routeline;
   const distance = route.params.distance;
-  const date = new Date().toString();
+  const date = format(new Date(), 'dd/MM/yyyy HH:mm:ss');
 
   const {
     seconds,
@@ -91,190 +92,8 @@ const RouteScreen = ({route, navigation}: Props) => {
                   bottom: 10,
                 }}>
                 {seconds}
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                Time
-              </Text>
-            </View>
-          </View>
-        </View>
 
-        <View>
-          <View
-            style={{
-              width: '100%',
-              justifyContent: 'space-evenly',
-              flexDirection: 'row',
-            }}>
-            <View style={{}}>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-                __
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                Pace
-              </Text>
-            </View>
-
-            <View>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-                __
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                BPM
-              </Text>
-            </View>
-
-            <View>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-                __
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                Time
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        <View>
-          <View
-            style={{
-              width: '100%',
-              justifyContent: 'space-evenly',
-              flexDirection: 'row',
-            }}>
-            <View style={{}}>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-                __
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                Pace
-              </Text>
-            </View>
-
-            <View>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-                __
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                BPM
-              </Text>
-            </View>
-
-            <View>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-                __
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                Time
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        <View>
-          <View
-            style={{
-              width: '100%',
-              justifyContent: 'space-evenly',
-              flexDirection: 'row',
-            }}>
-            <View style={{}}>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-                __
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                Pace
-              </Text>
-            </View>
-
-            <View>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-                __
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                BPM
-              </Text>
-            </View>
-
-            <View>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-<<<<<<< HEAD
-                __
-=======
                 {seconds}
->>>>>>> parent of 6a96b04 (now working)
               </Text>
               <Text
                 style={{
