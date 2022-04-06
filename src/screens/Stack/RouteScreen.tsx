@@ -270,7 +270,11 @@ const RouteScreen = ({route, navigation}: Props) => {
                   fontSize: 30,
                   bottom: 10,
                 }}>
+<<<<<<< HEAD
                 __
+=======
+                {seconds}
+>>>>>>> parent of 6a96b04 (now working)
               </Text>
               <Text
                 style={{
