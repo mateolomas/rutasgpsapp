@@ -12,6 +12,7 @@ import {getAllTrips} from '../../lib/storageTrip';
 import {TotalTrip} from '../../interfaces/appInterfaces';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigation/TripsInfoStack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Props
   extends NativeStackScreenProps<RootStackParamList, 'TripScreen'> {}
@@ -26,7 +27,7 @@ const TripScreen = ({navigation}: Props) => {
     hours: 0,
   });
 
-  const [trips, setTrips] = React.useState<TotalTrip[]>([tripInfo]);
+  const [trips, setTrips] = React.useState<TotalTrip[]>([{...tripInfo}]);
 
   const getTrip = async () => {
     const trips = await getAllTrips();
@@ -47,35 +48,32 @@ const TripScreen = ({navigation}: Props) => {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Your Trips</Text>
       </View>
-      <ScrollView style={{width: '100%'}}>
-        {trips &&
-          trips.map((trip, index) => (
-            <TouchableOpacity
-              style={styles.trip}
-              key={index}
-              onPress={() => {
-                setTripInfo(trip);
-                navigation.navigate('TripsInfoScreen', trip);
+      <ScrollView style={styles.scrollview}>
+        {trips.map((trip, index) => (
+          <TouchableOpacity
+            style={styles.trip}
+            key={index}
+            onPress={() => {
+              setTripInfo(trip);
+              navigation.navigate('TripsInfoScreen', trip);
+            }}>
+            <View
+              style={{
+                marginVertical: 0,
               }}>
-              <View
-                style={{
-                  marginVertical: 0,
-                }}>
-                <Text style={styles.tripText}>Id: {index}</Text>
-                <Text>Time: </Text>
-                {trip.minutes === 0 && trip.seconds === 0 ? null : (
-                  <Text>
-                    {trip.minutes}:{' '}
-                    {trip.seconds < 10 ? `0${trip.seconds}` : trip.seconds}
-                  </Text>
-                )}
+              <Text style={styles.tripText}>Id: {index}</Text>
+              <Text>Time: </Text>
+              {trip.minutes === 0 && trip.seconds === 0 ? null : (
                 <Text>
-                  Distance: {Math.round(trip.distance * 100) / 100} Km
+                  {trip.minutes}:{' '}
+                  {trip.seconds < 10 ? `0${trip.seconds}` : trip.seconds}
                 </Text>
-                <Text>Date: {trip.date!}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
+              )}
+              <Text>Distance: {Math.round(trip.distance * 100) / 100} Km</Text>
+              <Text>Date: {trip.date!}</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
       </ScrollView>
     </View>
   );
@@ -85,23 +83,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-
-    backgroundColor: 'white',
+  },
+  scrollview: {
+    flex: 1,
   },
 
   titleContainer: {
     margin: 20,
     backgroundColor: 'white',
-    top: 50,
-    height: 120,
+    top: 20,
     alignItems: 'center',
     width: '100%',
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: '500',
     textAlign: 'center',
     margin: 20,
+    color: 'black',
   },
   trip: {
     width: '90%',

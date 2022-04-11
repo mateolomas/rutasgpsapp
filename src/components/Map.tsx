@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useRef} from 'react';
-import {Dimensions, Platform} from 'react-native';
+import {Dimensions, Platform, View} from 'react-native';
 import MapView, {Marker, Polyline, PROVIDER_GOOGLE} from 'react-native-maps';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Location} from '../interfaces/appInterfaces';
@@ -73,8 +73,8 @@ export const Map = ({
     <>
       <MapView
         ref={el => (mapViewRef.current = el!)}
-        style={{flex: 1}}
         provider={PROVIDER_GOOGLE}
+        style={{flex: 2}}
         loadingEnabled
         showsUserLocation={showUserLocation}
         initialRegion={{
@@ -121,17 +121,17 @@ export const Map = ({
         )}
       </MapView>
 
-      {Platform.OS === 'ios' ? (
+      {/* {Platform.OS === 'ios' ? (
         <Fab
           iconName="compass-outline"
           onPress={centerPosition}
           style={{
             position: 'absolute',
-            bottom: 250,
-            left: 20,
+            left: -120,
+            bottom: 190,
           }}
         />
-      ) : null}
+      ) : null} */}
     </>
   );
 };

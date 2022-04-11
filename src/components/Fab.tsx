@@ -19,7 +19,7 @@ const Fab = ({iconName, onPress, style}: Props) => {
   return (
     <View style={{...(style as any)}}>
       <TouchableOpacity onPress={onPress} style={styles.blackbutton}>
-        <Icon name={iconName} size={50} color="black" />
+        <Icon name={iconName} size={40} color="black" />
       </TouchableOpacity>
     </View>
   );
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 30,
-    zIndex: 9999,
+    shadowColor: 'black',
   },
 });
 
