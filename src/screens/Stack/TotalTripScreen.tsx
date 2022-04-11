@@ -80,23 +80,6 @@ const TotalTripScreen = ({route, navigation}: Props) => {
               justifyContent: 'space-evenly',
               flexDirection: 'row',
             }}>
-            <View style={{}}>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-                __
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                Pace
-              </Text>
-            </View>
-
             <View>
               <Text
                 style={{
@@ -104,84 +87,12 @@ const TotalTripScreen = ({route, navigation}: Props) => {
                   fontSize: 30,
                   bottom: 10,
                 }}>
-                __
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                BPM
-              </Text>
-            </View>
-
-            <View>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-                {trip.hours}:{trip.minutes}:{trip.seconds}
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                Time
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        <View>
-          <View
-            style={{
-              width: '100%',
-              justifyContent: 'space-evenly',
-              flexDirection: 'row',
-            }}>
-            <View style={{}}>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-                __
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                Pace
-              </Text>
-            </View>
-
-            <View>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-                __
-              </Text>
-              <Text
-                style={{
-                  fontWeight: '200',
-                }}>
-                BPM
-              </Text>
-            </View>
-
-            <View>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  bottom: 10,
-                }}>
-                __
+                {trip.minutes === 0 && trip.seconds === 0 ? null : (
+                  <Text>
+                    {trip.minutes}:{' '}
+                    {trip.seconds < 10 ? `0${trip.seconds}` : trip.seconds}
+                  </Text>
+                )}
               </Text>
               <Text
                 style={{

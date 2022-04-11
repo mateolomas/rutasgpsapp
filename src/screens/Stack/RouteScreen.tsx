@@ -91,9 +91,11 @@ const RouteScreen = ({route, navigation}: Props) => {
                   fontSize: 30,
                   bottom: 10,
                 }}>
-                {seconds}
-
-                {seconds}
+                {minutes === 0 && seconds === 0 ? null : (
+                  <Text>
+                    {minutes}: {seconds < 10 ? `0${seconds}` : seconds}
+                  </Text>
+                )}
               </Text>
               <Text
                 style={{

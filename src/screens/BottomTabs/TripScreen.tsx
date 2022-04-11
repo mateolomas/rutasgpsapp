@@ -67,9 +67,13 @@ const TripScreen = ({navigation}: Props) => {
                   marginVertical: 0,
                 }}>
                 <Text style={styles.tripText}>Id: {index}</Text>
-                <Text>
-                  Time: {trip.hours}: {trip.minutes}:{trip.seconds}
-                </Text>
+                <Text>Time: </Text>
+                {trip.minutes === 0 && trip.seconds === 0 ? null : (
+                  <Text>
+                    {trip.minutes}:{' '}
+                    {trip.seconds < 10 ? `0${trip.seconds}` : trip.seconds}
+                  </Text>
+                )}
                 <Text>
                   Distance: {Math.round(trip.distance * 100) / 100} Km
                 </Text>

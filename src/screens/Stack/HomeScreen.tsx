@@ -143,7 +143,15 @@ const HomeScreen = ({navigation}: Props) => {
                 style={{
                   fontWeight: '400',
                 }}>
-                {lastTrip?.minutes}:{lastTrip?.seconds} min
+                {lastTrip.minutes === 0 && lastTrip.seconds === 0 ? null : (
+                  <Text>
+                    {lastTrip.minutes}:{' '}
+                    {lastTrip.seconds < 10
+                      ? `0${lastTrip.seconds}`
+                      : lastTrip.seconds}
+                  </Text>
+                )}{' '}
+                min
               </Text>
             </View>
           </View>
