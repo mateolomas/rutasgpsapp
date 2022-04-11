@@ -29,7 +29,9 @@ const DistanceScreen = ({navigation, route}: Props) => {
   const followUserLocation = () => {
     watchId.current = Geolocation.watchPosition(
       ({coords}) => {
-        if (!isMounted.current) return;
+        if (!isMounted.current) {
+          return;
+        }
 
         const location: Location = {
           latitude: coords.latitude,
@@ -49,7 +51,9 @@ const DistanceScreen = ({navigation, route}: Props) => {
   };
 
   const stopFollowUserLocation = () => {
-    if (watchId.current) Geolocation.clearWatch(watchId.current);
+    if (watchId.current) {
+      Geolocation.clearWatch(watchId.current);
+    }
   };
 
   useEffect(() => {

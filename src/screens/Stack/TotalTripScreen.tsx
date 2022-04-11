@@ -3,7 +3,6 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Map} from '../../components/Map';
 import {LocationContext} from '../../context/LocationContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigation/NativeStack';
 import {saveTrip} from '../../lib/storageTrip';
@@ -26,7 +25,7 @@ const TotalTripScreen = ({route, navigation}: Props) => {
       style={{
         flex: 1,
         justifyContent: 'center',
-
+        top: 20,
         backgroundColor: 'white',
       }}>
       <View

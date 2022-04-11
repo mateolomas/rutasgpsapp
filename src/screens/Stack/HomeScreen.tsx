@@ -91,12 +91,13 @@ const HomeScreen = ({navigation}: Props) => {
             </View>
           </View>
         </View>
-        <ScrollView horizontal>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View
             style={{
               marginTop: 20,
               height: 210,
               padding: 10,
+              borderRadius: 10,
               backgroundColor: 'white',
               flexDirection: 'row',
               shadowColor: '#000',

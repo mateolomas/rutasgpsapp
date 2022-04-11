@@ -30,7 +30,9 @@ export const useLocation = () => {
   useEffect(() => {
     getCurrentLocation()
       .then(location => {
-        if (!isMounted.current) return;
+        if (!isMounted.current) {
+          return;
+        }
 
         setInitialPosition(location);
         setUserLocation(location);
@@ -58,7 +60,9 @@ export const useLocation = () => {
   const followUserLocation = () => {
     watchId.current = Geolocation.watchPosition(
       ({coords}) => {
-        if (!isMounted.current) return;
+        if (!isMounted.current) {
+          return;
+        }
 
         const location: Location = {
           latitude: coords.latitude,
@@ -79,7 +83,9 @@ export const useLocation = () => {
   };
 
   const stopFollowUserLocation = () => {
-    if (watchId.current) Geolocation.clearWatch(watchId.current);
+    if (watchId.current) {
+      Geolocation.clearWatch(watchId.current);
+    }
   };
 
   return {

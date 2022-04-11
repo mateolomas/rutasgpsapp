@@ -1,8 +1,7 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
-import {Dimensions} from 'react-native';
+import React, {useContext, useEffect, useRef} from 'react';
+import {Dimensions, Platform} from 'react-native';
 import MapView, {Marker, Polyline, PROVIDER_GOOGLE} from 'react-native-maps';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useLocation} from '../hooks/useLocation';
 import {Location} from '../interfaces/appInterfaces';
 import LoadingScreen from '../screens/Stack/LoadingScreen';
 import Fab from './Fab';
@@ -25,8 +24,6 @@ export const Map = ({
   showUserLocation = true,
   zoom = 0.009,
 }: Props) => {
-  const [showPolyline, setShowPolyline] = useState(true);
-
   let {width, height} = Dimensions.get('window');
   const ASPECT_RATIO = width / height;
   const LATITUDE_DELTA = zoom;
@@ -34,12 +31,10 @@ export const Map = ({
 
   const {
     hasLocation,
-    initialPosition,
     getCurrentLocation,
     followUserLocation,
     userLocation,
     stopFollowUserLocation,
-    routeLines,
   } = useContext(LocationContext);
 
   const mapViewRef = useRef<MapView>();
@@ -53,7 +48,9 @@ export const Map = ({
   }, []);
 
   useEffect(() => {
-    if (!following.current) return;
+    if (!following.current) {
+      return;
+    }
     const {latitude, longitude} = userLocation;
     mapViewRef.current?.animateCamera({
       center: {latitude, longitude},
@@ -124,28 +121,17 @@ export const Map = ({
         )}
       </MapView>
 
-      <Fab
-        iconName="compass-outline"
-        onPress={centerPosition}
-        style={{
-          position: 'absolute',
-          bottom: 250,
-          left: 20,
-        }}
-      />
-
-      {/*   <Fab
-        iconName="brush-outline"
-        onPress={() => {
-          setShowPolyline(!showPolyline);
-          console.log('pressed');
-        }}
-        style={{
-          position: 'absolute',
-          bottom: 120,
-          right: 20,
-        }}
-      /> */}
+      {Platform.OS === 'ios' ? (
+        <Fab
+          iconName="compass-outline"
+          onPress={centerPosition}
+          style={{
+            position: 'absolute',
+            bottom: 250,
+            left: 20,
+          }}
+        />
+      ) : null}
     </>
   );
 };

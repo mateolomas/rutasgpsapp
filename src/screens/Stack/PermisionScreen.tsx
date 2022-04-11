@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {PermissionsContext} from '../../context/PermissionsContext';
 
 const PermisionScreen = () => {
-  const {askLocationPermission, checkLocationPermission, permissions} =
+  const {askLocationPermission, permissions} =
     React.useContext(PermissionsContext);
 
   return (

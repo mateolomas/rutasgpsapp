@@ -32,7 +32,9 @@ export const PermissionsProvider = ({children}: any) => {
   useEffect(() => {
     checkLocationPermission();
     AppState.addEventListener('change', state => {
-      if (state !== 'active') return;
+      if (state !== 'active') {
+        return;
+      }
       checkLocationPermission();
     });
   });

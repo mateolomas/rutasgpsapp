@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import TripScreen from '../screens/BottomTabs/TripScreen';
@@ -12,7 +12,7 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator();
 
-export const TripInfoStack = ({navigation, route}: any) => {
+export const TripInfoStack = () => {
   return (
     <Stack.Navigator
       initialRouteName="TripScreen"

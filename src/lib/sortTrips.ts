@@ -1,9 +1,5 @@
-import { RouteInfo } from '../interfaces/appInterfaces';
+import {RouteInfo} from '../interfaces/appInterfaces';
 
 export const sortTrips = (trips: RouteInfo[]) => {
-
-    
-    let sortedArray = [];
-
-
-}
+  let sortedArray = [];
+};

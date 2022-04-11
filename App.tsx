@@ -18,7 +18,6 @@ const App = () => {
     <NavigationContainer>
       <LocationProvider>
         <AppState>
-          {/* <NativeStack /> */}
           <BottomTabs />
         </AppState>
       </LocationProvider>

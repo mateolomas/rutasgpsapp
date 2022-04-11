@@ -1,9 +1,6 @@
 //Location context
 import React from 'react';
 import {createContext} from 'react';
-import {useState, useEffect} from 'react';
-import MapView from 'react-native-maps';
-
 import {useLocation} from '../hooks/useLocation';
 import {Location} from '../interfaces/appInterfaces';
 import {useStopwatch} from 'react-timer-hook';
@@ -37,7 +34,7 @@ export const LocationProvider = ({children}: any) => {
     getCurrentLocation,
   } = useLocation();
 
-  const {seconds, minutes, hours, days, isRunning, start, pause, reset} =
+  const {seconds, minutes, hours, isRunning, start, pause, reset} =
     useStopwatch({autoStart: true});
 
   return (

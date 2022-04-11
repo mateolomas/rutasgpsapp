@@ -5,7 +5,7 @@ import {LocationContext} from '../context/LocationContext';
 
 export const useStorage = () => {
   /* const {initialPosition} = useContext(LocationContext); */
-  /* 
+  /*
   const [trips, setTrips] = React.useState<RouteInfo[]>([]);
   const [tripInfo, setTripInfo] = React.useState<TotalTrip>({
     distance: 0,

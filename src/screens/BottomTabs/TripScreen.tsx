@@ -1,22 +1,17 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
   View,
   Text,
-  Button,
   TouchableOpacity,
   ScrollView,
   StyleSheet,
-  Image,
 } from 'react-native';
 
-import {Map} from '../../components/Map';
 import {LocationContext} from '../../context/LocationContext';
 import {getAllTrips} from '../../lib/storageTrip';
-import {RouteInfo, TotalTrip} from '../../interfaces/appInterfaces';
+import {TotalTrip} from '../../interfaces/appInterfaces';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigation/TripsInfoStack';
-
-import MapView from 'react-native-maps';
 
 interface Props
   extends NativeStackScreenProps<RootStackParamList, 'TripScreen'> {}
