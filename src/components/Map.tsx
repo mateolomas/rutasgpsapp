@@ -87,7 +87,7 @@ export const Map = ({
           longitudeDelta: LONGITUDE_DELTA,
         }}
         onTouchStart={() => (following.current = false)}>
-        {showPolyline && (
+        {polyline && (
           <Polyline
             coordinates={polyline!}
             strokeColor="black"

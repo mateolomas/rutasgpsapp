@@ -136,8 +136,9 @@ const HomeScreen = ({navigation}: Props) => {
                 }}>
                 {lastTrip?.date?.substring(0, 10)}
               </Text>
+              <Text>{lastTrip?.date?.substring(11, 16)}</Text>
 
-              <Text>{Math.round(lastTrip!.distance * 100) / 100} Km</Text>
+              {/* <Text>{Math.round(lastTrip!.distance * 100) / 100} Km</Text> */}
               <Text
                 style={{
                   fontWeight: '400',

@@ -11,6 +11,7 @@ const TripsInfoScreen = ({route}: Props) => {
   const routeList = route.params.routeList;
   const distance = route.params.distance;
   const date = route.params.date;
+  const time = route.params.minutes + ':' + route.params.seconds;
 
   return (
     <View style={{flex: 1, width: '100%'}}>
@@ -20,6 +21,7 @@ const TripsInfoScreen = ({route}: Props) => {
           Distance: {Math.round(distance * 100) / 100} Km
         </Text>
         <Text style={styles.distance}>Date: {date!}</Text>
+        <Text style={styles.distance}>Time: {time}</Text>
       </View>
 
       <Map

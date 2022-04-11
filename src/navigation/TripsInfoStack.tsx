@@ -17,8 +17,8 @@ export const TripInfoStack = ({navigation, route}: any) => {
     <Stack.Navigator
       initialRouteName="TripScreen"
       screenOptions={{
-        /* presentation: 'fullScreenModal', */
-        presentation: 'modal',
+        presentation: 'fullScreenModal',
+        //presentation: 'modal',
       }}>
       <Stack.Screen
         options={{
