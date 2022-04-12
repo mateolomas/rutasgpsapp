@@ -3,12 +3,11 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Map} from '../../components/Map';
 import {LocationContext} from '../../context/LocationContext';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/NativeStack';
 import {format} from 'date-fns';
 
-interface Props
-  extends NativeStackScreenProps<RootStackParamList, 'RouteScreen'> {}
+interface Props extends StackScreenProps<RootStackParamList, 'RouteScreen'> {}
 
 const RouteScreen = ({route, navigation}: Props) => {
   const finalPosition = route.params.finalPosition!;

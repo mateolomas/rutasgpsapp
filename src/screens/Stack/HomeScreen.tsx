@@ -4,7 +4,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Map} from '../../components/Map';
 import {LocationContext} from '../../context/LocationContext';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/NativeStack';
 import {Location, TotalTrip} from '../../interfaces/appInterfaces';
 import {getAllTrips} from '../../lib/storageTrip';
@@ -15,8 +15,7 @@ import MapButtons from '../../components/MapButtons';
 import Cards from '../../components/Cards';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-interface Props
-  extends NativeStackScreenProps<RootStackParamList, 'HomeScreen'> {}
+interface Props extends StackScreenProps<RootStackParamList, 'HomeScreen'> {}
 
 const HomeScreen = ({navigation}: Props) => {
   const {top} = useSafeAreaInsets();

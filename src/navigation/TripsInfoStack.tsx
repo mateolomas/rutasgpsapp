@@ -1,5 +1,5 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import TripScreen from '../screens/BottomTabs/TripScreen';
 import TripsInfoScreen from '../screens/BottomTabs/TripsInfoScreen';
@@ -10,15 +10,15 @@ export type RootStackParamList = {
   TripScreen: undefined;
 };
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 export const TripInfoStack = () => {
   return (
     <Stack.Navigator
       initialRouteName="TripScreen"
       screenOptions={{
-        presentation: 'fullScreenModal',
-        //presentation: 'modal',
+        //presentation: 'fullScreenModal',
+        presentation: 'modal',
       }}>
       <Stack.Screen
         options={{

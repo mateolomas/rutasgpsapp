@@ -3,12 +3,12 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Map} from '../../components/Map';
 import {LocationContext} from '../../context/LocationContext';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/NativeStack';
 import {saveTrip} from '../../lib/storageTrip';
 
 interface Props
-  extends NativeStackScreenProps<RootStackParamList, 'TotalTripScreen'> {}
+  extends StackScreenProps<RootStackParamList, 'TotalTripScreen'> {}
 
 const TotalTripScreen = ({route, navigation}: Props) => {
   const trip = route.params;

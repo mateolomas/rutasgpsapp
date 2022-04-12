@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import PermisionScreen from '../screens/Stack/PermisionScreen';
 import LoadingScreen from '../screens/Stack/LoadingScreen';
@@ -9,7 +9,6 @@ import RouteScreen from '../screens/Stack/RouteScreen';
 import TotalTripScreen from '../screens/Stack/TotalTripScreen';
 import HomeScreen from '../screens/Stack/HomeScreen';
 import {Location, RouteInfo, TotalTrip} from '../interfaces/appInterfaces';
-import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 export type RootStackParamList = {
   HomeScreen: undefined;
@@ -20,13 +19,13 @@ export type RootStackParamList = {
   TotalTripScreen: TotalTrip;
 };
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 export const NativeStack = ({navigation, route}: any) => {
   const {permissions} = useContext(PermissionsContext);
-  if (permissions.locationStatus === 'unavailable') {
+  /* if (permissions.locationStatus === 'unavailable') {
     return <LoadingScreen />;
-  }
+  } */
 
   return (
     <Stack.Navigator

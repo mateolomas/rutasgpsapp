@@ -10,12 +10,11 @@ import {
 import {LocationContext} from '../../context/LocationContext';
 import {getAllTrips} from '../../lib/storageTrip';
 import {TotalTrip} from '../../interfaces/appInterfaces';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/TripsInfoStack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-interface Props
-  extends NativeStackScreenProps<RootStackParamList, 'TripScreen'> {}
+interface Props extends StackScreenProps<RootStackParamList, 'TripScreen'> {}
 
 const TripScreen = ({navigation}: Props) => {
   const {userLocation} = useContext(LocationContext);
@@ -86,6 +85,8 @@ const styles = StyleSheet.create({
   },
   scrollview: {
     flex: 1,
+    backgroundColor: 'white',
+    width: '100%',
   },
 
   titleContainer: {
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   trip: {
-    width: '90%',
+    width: '100%',
     padding: 10,
     height: 100,
     marginVertical: 8,

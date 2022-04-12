@@ -3,13 +3,13 @@ import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {LocationContext} from '../../context/LocationContext';
 import {getDistanceFromArray} from '../../helpers/Distance';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/NativeStack';
 import {Location} from '../../interfaces/appInterfaces';
 import Geolocation from '@react-native-community/geolocation';
 
 interface Props
-  extends NativeStackScreenProps<RootStackParamList, 'DistanceScreen'> {}
+  extends StackScreenProps<RootStackParamList, 'DistanceScreen'> {}
 
 const DistanceScreen = ({navigation, route}: Props) => {
   const initialPosition = route.params;
